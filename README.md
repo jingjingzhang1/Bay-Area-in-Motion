@@ -1,9 +1,6 @@
 # Bay Area in Motion: Mapping Daytime Population Changes, 2017–2023
-
-CP 101 (UC Berkeley, Fall 2026) final project, Track B: Data Analytics & Reproducibility
-MTC project #4 · Mentor: Kaya Tollas (MTC)
-
-**Team "404: Static Not Found":** Happy Feng, Jingjing Zhang, Chiahao Ku, Hanzhen Yu
+CP 101 (UC Berkeley, Fall 2026) final project, Track B, MTC Mentor: Kaya Tollas
+**Team "404: Static Not Found":** Hanzhen Yu, Jingjing Zhang, Happy Feng, Chiahao Ku
 
 ## Research question
 
