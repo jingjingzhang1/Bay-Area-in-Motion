@@ -1,0 +1,20 @@
+# Data files are too large for GitHub; see README "Getting the data"
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+*.csv.gz
+*.zip
+*.gpkg
+*.shp
+*.shx
+*.dbf
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
