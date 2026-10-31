@@ -18,3 +18,9 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local credentials and generated cleaning outputs
+.env
+.venv/
+outputs/tables/
+outputs/figures/
