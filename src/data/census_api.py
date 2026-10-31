@@ -20,6 +20,14 @@ VARIABLES = {
     "B08604_001E": "workers_workplace",
 }
 METRICS = list(VARIABLES.values())
+# 90% margins of error for the county panel. B01003 is a controlled estimate, so the
+# Census returns a negative sentinel instead of a numeric MOE; it becomes missing.
+MOE_VARIABLES = {
+    "B01003_001M": "population_moe",
+    "B08301_001M": "workers_residence_moe",
+    "B08301_021M": "work_from_home_moe",
+    "B08604_001M": "workers_workplace_moe",
+}
 
 
 class CensusClient:

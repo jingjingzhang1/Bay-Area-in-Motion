@@ -19,8 +19,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Local credentials and generated cleaning outputs
+# Local credentials
 .env
 .venv/
-outputs/tables/
-outputs/figures/
+
+# Large generated cache (rebuilt by src.main); other tables and all figures are kept
+outputs/tables/od_tract_flows_by_year.csv
