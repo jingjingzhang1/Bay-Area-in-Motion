@@ -4,7 +4,7 @@ import csv
 import math
 import re
 import argparse
-from src.utils.config import RAW_DIR, PROCESSED_DIR
+from src.utils.config import RAW_VITAL_SIGNS_GDB, VITAL_SIGNS_SHAPEFILE_DIR
 
 
 def number(value):
@@ -118,8 +118,8 @@ def convert(source_path, output_dir):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", type=Path, default=RAW_DIR / "Vital_signs_tracts_pop_estimate.gdb")
-    parser.add_argument("--output-dir", type=Path, default=PROCESSED_DIR / "vital_signs_shapefile")
+    parser.add_argument("--source", type=Path, default=RAW_VITAL_SIGNS_GDB)
+    parser.add_argument("--output-dir", type=Path, default=VITAL_SIGNS_SHAPEFILE_DIR)
     args = parser.parse_args()
     convert(args.source, args.output_dir)
 

@@ -4,17 +4,17 @@ import pandas as pd
 from pathlib import Path
 
 from src.data.census_api import COUNTIES, STATE, VARIABLES, METRICS, CensusClient
-from src.utils.config import PROCESSED_DIR
+from src.utils.config import ACS_PLACES_DIR, CENSUS_CACHE_DIR
 
 YEARS = list(range(2017, 2024))
 ROSTER_YEAR = 2023
 INCLUDE_CDPS = False
 
 
-def run(output_dir=PROCESSED_DIR / "acs1_jurisdiction_output", *, client=None, force_refresh=False):
+def clean_acs_places(output_dir=ACS_PLACES_DIR, *, client=None, force_refresh=False):
     OUTPUT_DIR = Path(output_dir)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    client = client or CensusClient(OUTPUT_DIR / "api_cache", force_refresh)
+    client = client or CensusClient(CENSUS_CACHE_DIR / "places", force_refresh)
     place_names = client.table(ROSTER_YEAR, "acs/acs5", {
         "get": "NAME", "for": "place:*", "in": f"state:{STATE}",
     })

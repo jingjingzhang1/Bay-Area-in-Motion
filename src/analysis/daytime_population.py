@@ -1,60 +1,82 @@
-"""County daytime population proxies from the original merge notebook."""
+"""Daytime population proxies at county and tract level.
+
+County: two proxies per county and year
+    LODES proxy = population + WAC - RAC
+    ACS proxy   = population + workers by workplace - workers by residence
+Tract: fixed 2023 ACS 5-year resident population P + year-specific WAC - RAC,
+so changes over time reflect LODES net job flows only.
+Both are commuting-based proxies, not counts of people physically present.
+"""
 import pandas as pd
 
-from src.data.census_api import clean_counts
 from src.utils.config import BAY_AREA_COUNTIES
 
-
-def read_county_estimates(path, values):
-    frame = pd.read_csv(path, dtype={"GEOID": str})
-    frame = frame[["year", "GEOID"] + values].copy()
-    frame["year"] = pd.to_numeric(frame["year"], errors="raise").astype(int)
-    if not frame["GEOID"].isin(BAY_AREA_COUNTIES).all():
-        raise ValueError(f"Expected five-digit Bay Area county GEOIDs in {path}")
-    if frame.duplicated(["year", "GEOID"]).any():
-        raise ValueError(f"Duplicate county-year estimates in {path}")
-    return clean_counts(frame, values)
+ACS_VALUES = ["population", "workers_residence", "work_from_home", "workers_workplace"]
 
 
-def merge_counties(lodes_path, population_path, residence_path, workplace_path):
-    """Keep every input LODES county-year, including 2020 with missing ACS.
-
-    The input is already cleaned tract WAC/RAC; its upstream cleaning notebook
-    was not present in the local handoff. No missing job counts become zero.
-    """
-    lodes = pd.read_csv(lodes_path, dtype={"tract_geoid": str, "county_fips": str})
-    required = ["year", "tract_geoid", "county_fips", "WAC", "RAC"]
-    lodes = lodes[required].copy()
-    lodes["year"] = pd.to_numeric(lodes["year"], errors="raise").astype(int)
-    if (not lodes["county_fips"].isin(BAY_AREA_COUNTIES).all()
-            or not lodes["tract_geoid"].str.fullmatch(r"\d{11}").fillna(False).all()
-            or not lodes["tract_geoid"].str[:5].eq(lodes["county_fips"]).all()):
-        raise ValueError("Invalid Bay Area tract/county identifiers in LODES input")
-    if lodes.duplicated(["year", "tract_geoid"]).any():
-        raise ValueError("Duplicate tract-year rows in LODES input")
+def check_wac_rac(wac_rac):
+    """Stop on invalid IDs, duplicate tract-years, or missing/negative job counts."""
+    if (not wac_rac["county_fips"].isin(BAY_AREA_COUNTIES).all()
+            or not wac_rac["tract_geoid"].str.fullmatch(r"\d{11}").fillna(False).all()
+            or not wac_rac["tract_geoid"].str[:5].eq(wac_rac["county_fips"]).all()):
+        raise ValueError("Invalid Bay Area tract/county identifiers in WAC/RAC input")
+    if wac_rac.duplicated(["year", "tract_geoid"]).any():
+        raise ValueError("Duplicate tract-year rows in WAC/RAC input")
     for column in ["WAC", "RAC"]:
-        lodes[column] = pd.to_numeric(lodes[column], errors="raise")
-        if lodes[column].isna().any() or (lodes[column] < 0).any():
+        values = pd.to_numeric(wac_rac[column], errors="raise")
+        if values.isna().any() or (values < 0).any():
             raise ValueError(f"Missing or negative {column} jobs")
-    county = lodes.groupby(["year", "county_fips"], as_index=False)[["WAC", "RAC"]].sum()
-    county["GEOID"] = county["county_fips"]
-    for path, values in [
-        (population_path, ["population"]),
-        (residence_path, ["workers_residence", "work_from_home"]),
-        (workplace_path, ["workers_workplace"]),
-    ]:
-        county = county.merge(read_county_estimates(path, values),
-                              on=["year", "GEOID"], how="left", validate="one_to_one")
-    # Even a stale input file must not supply standard ACS 1-year values for 2020.
-    acs_columns = ["population", "workers_residence", "work_from_home", "workers_workplace"]
-    county.loc[county["year"].eq(2020), acs_columns] = float("nan")
+
+
+def county_daytime(wac_rac, acs_county):
+    """One row per county and year. Keeps every WAC/RAC year (including 2020, where ACS is blank)."""
+    check_wac_rac(wac_rac)
+    county = wac_rac.groupby(["year", "county_fips"], as_index=False)[["WAC", "RAC"]].sum()
+    county = county.merge(acs_county[["year", "county_fips"] + ACS_VALUES],
+                          on=["year", "county_fips"], how="left", validate="one_to_one")
+    # No standard ACS 1-year values exist for 2020, even if an input file has some.
+    county.loc[county["year"].eq(2020), ACS_VALUES] = float("nan")
     county["county_name"] = county["county_fips"].map(BAY_AREA_COUNTIES)
-    county["net_change"] = county["WAC"] - county["RAC"]
-    county["daytime_population_LODES"] = county["population"] + county["net_change"]
-    county["daytime_population_acs"] = county["population"] + county["workers_workplace"] - county["workers_residence"]
-    county["daytime_population_difference_2_metrics"] = county["daytime_population_LODES"] - county["daytime_population_acs"]
+    county["net_jobs"] = county["WAC"] - county["RAC"]
+    county["daytime_proxy_lodes"] = county["population"] + county["net_jobs"]
+    county["daytime_proxy_acs"] = county["population"] + county["workers_workplace"] - county["workers_residence"]
+    county["lodes_minus_acs"] = county["daytime_proxy_lodes"] - county["daytime_proxy_acs"]
+    county["lodes_minus_acs_pct"] = (100 * county["lodes_minus_acs"] / county["daytime_proxy_acs"]).round(2)
     county["work_from_home_pct"] = 100 * county["work_from_home"] / county["workers_residence"].where(county["workers_residence"] > 0)
-    columns = ["year", "county_fips", "county_name", "population", "WAC", "RAC", "net_change",
-               "daytime_population_LODES", "workers_residence", "workers_workplace", "work_from_home",
-               "work_from_home_pct", "daytime_population_acs", "daytime_population_difference_2_metrics"]
+    columns = ["year", "county_fips", "county_name", "population", "WAC", "RAC", "net_jobs",
+               "daytime_proxy_lodes", "workers_residence", "workers_workplace", "work_from_home",
+               "work_from_home_pct", "daytime_proxy_acs", "lodes_minus_acs", "lodes_minus_acs_pct"]
     return county[columns].sort_values(["year", "county_name"]).reset_index(drop=True)
+
+
+def wfh_change(county, start, end):
+    """Work-from-home share by county in two years and the change in percentage points."""
+    wide = county.pivot(index="county_name", columns="year", values="work_from_home_pct")
+    out = wide[[start, end]].round(2)
+    out.columns = [f"wfh_pct_{start}", f"wfh_pct_{end}"]
+    out["change_pct_points"] = (out[f"wfh_pct_{end}"] - out[f"wfh_pct_{start}"]).round(2)
+    return out.reset_index()
+
+
+def tract_daytime(wac_rac, tract_population):
+    """Tract proxy per year with a fixed resident population baseline (2023 ACS 5-year)."""
+    check_wac_rac(wac_rac)
+    pop = tract_population[["tract_geoid", "population", "population_moe",
+                            "flag_population_under_500", "flag_relative_moe_gt_50pct"]]
+    tract = wac_rac[["year", "tract_geoid", "county_fips", "WAC", "RAC"]].merge(
+        pop, on="tract_geoid", how="left", validate="many_to_one")
+    tract["county_name"] = tract["county_fips"].map(BAY_AREA_COUNTIES)
+    tract["net_jobs"] = tract["WAC"] - tract["RAC"]
+    tract["daytime_proxy"] = tract["population"] + tract["net_jobs"]
+    tract["net_jobs_per_resident"] = (tract["net_jobs"] / tract["population"].where(tract["population"] >= 500)).round(4)
+    return tract.sort_values(["tract_geoid", "year"]).reset_index(drop=True)
+
+
+def tract_net_change(wac_rac, start, end):
+    """Change in net jobs (WAC - RAC) per tract between two years."""
+    net = wac_rac.assign(net_jobs=wac_rac["WAC"] - wac_rac["RAC"])
+    t0 = net[net.year == start].set_index("tract_geoid")["net_jobs"]
+    t1 = net[net.year == end].set_index("tract_geoid")["net_jobs"]
+    chg = (t1 - t0).dropna().rename("delta_net_jobs").reset_index()
+    chg["county_name"] = chg["tract_geoid"].str[:5].map(BAY_AREA_COUNTIES)
+    return chg

@@ -1,8 +1,9 @@
-"""Project paths and constants. All paths are relative to the project root.
+"""Project paths, file names and constants. Every path is relative to the project root.
 
-To use data stored somewhere else (for example the shared Google Drive folder
-in Colab), set the environment variable BAY_DATA_DIR before running:
-    import os; os.environ["BAY_DATA_DIR"] = "/content/drive/My Drive/CP 101 Final Project Data Files"
+To read data stored somewhere else (for example the shared Google Drive folder in
+Colab), set the environment variable BAY_DATA_DIR to a folder that contains
+raw/ and processed/ before running:
+    import os; os.environ["BAY_DATA_DIR"] = "/content/drive/My Drive/<data folder>"
 """
 import os
 from pathlib import Path
@@ -17,6 +18,7 @@ TABLES_DIR = OUTPUT_DIR / "tables"
 FIGURES_DIR = OUTPUT_DIR / "figures"
 
 YEARS = list(range(2017, 2024))
+PRE_COVID_YEAR = 2019
 CHUNK_ROWS = 1_000_000
 
 BAY_AREA_COUNTIES = {
@@ -30,3 +32,29 @@ BAY_AREA_COUNTIES = {
     "06095": "Solano",
     "06097": "Sonoma",
 }
+
+# ---- Raw inputs (data/raw/) ----
+RAW_XWALK = RAW_DIR / "lodes" / "ca_xwalk.csv.gz"
+RAW_OD_PATTERN = "ca_od_main_JT01_{year}.csv.gz"          # in data/raw/lodes/
+RAW_ACS5_TRACT_ZIP = RAW_DIR / "acs" / "ACSDT5Y2023.B01003.zip"
+RAW_VITAL_SIGNS_TRACTS = RAW_DIR / "vital_signs" / "vital_signs_tract_population_2017_2024.csv"
+RAW_VITAL_SIGNS_GDB = RAW_DIR / "vital_signs" / "Vital_signs_tracts_pop_estimate.gdb"
+
+# ---- Cleaned data (data/processed/) ----
+XWALK_BAY = PROCESSED_DIR / "lodes_xwalk_bay_area.csv.gz"
+OD_PATTERN = "lodes_od_bay_area_{year}.csv.gz"
+WAC_RAC_TRACTS = PROCESSED_DIR / "lodes_wac_rac_tracts_2017_2023.csv"
+ACS_COUNTY = PROCESSED_DIR / "acs1_county_2017_2024.csv"
+ACS_TRACT_POPULATION = PROCESSED_DIR / "acs5_tract_population_2023.csv"
+ACS_PLACES_DIR = PROCESSED_DIR / "acs1_places"
+ACS_BLOCKGROUPS_DIR = PROCESSED_DIR / "acs5_blockgroups"
+CENSUS_CACHE_DIR = PROCESSED_DIR / "census_api_cache"
+VITAL_SIGNS_SHAPEFILE_DIR = PROCESSED_DIR / "vital_signs_shapefile"
+
+
+def raw_od_path(year):
+    return RAW_DIR / "lodes" / RAW_OD_PATTERN.format(year=year)
+
+
+def od_path(year):
+    return PROCESSED_DIR / OD_PATTERN.format(year=year)

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
 from matplotlib.patches import Patch
 from src.data.census_api import METRICS
-from src.data.acs_places import YEARS
+from src.data.clean_acs_places import YEARS
 
 
 def plot_places(roster, coverage, summary, output_dir):
@@ -165,17 +165,4 @@ def plot_blockgroups(missing_pct, output_dir):
     ax.legend(bbox_to_anchor=(1.02, 1), loc="upper left")
     plt.tight_layout()
     plt.savefig(output_dir / "blockgroup_estimate_coverage_2020_2024.png", dpi=180, bbox_inches="tight")
-    plt.close()
-
-
-def plot_work_from_home(counties, output_dir):
-    output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    wide = counties.pivot(index="year", columns="county_name", values="work_from_home_pct")
-    ax = wide.plot(figsize=(11, 6), marker="o")
-    ax.set(title="Work from home by county", xlabel="Year", ylabel="Workers working from home (%)")
-    ax.legend(title="County", bbox_to_anchor=(1.02, 1), loc="upper left")
-    ax.grid(alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(output_dir / "work_from_home_by_county.png", dpi=180, bbox_inches="tight")
     plt.close()

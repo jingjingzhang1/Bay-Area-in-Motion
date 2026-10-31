@@ -4,7 +4,7 @@ import pandas as pd
 from pathlib import Path
 
 from src.data.census_api import COUNTIES, STATE, VARIABLES, METRICS, CensusClient
-from src.utils.config import PROCESSED_DIR
+from src.utils.config import ACS_BLOCKGROUPS_DIR, CENSUS_CACHE_DIR
 
 RELEASE_YEAR = 2024
 YEARS = [RELEASE_YEAR]
@@ -18,10 +18,10 @@ for variable, metric in VARIABLES.items():
     })
 
 
-def run(output_dir=PROCESSED_DIR / "acs5_blockgroup_output", *, client=None, force_refresh=False):
+def clean_acs_blockgroups(output_dir=ACS_BLOCKGROUPS_DIR, *, client=None, force_refresh=False):
     OUTPUT_DIR = Path(output_dir)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    client = client or CensusClient(OUTPUT_DIR / "api_cache", force_refresh)
+    client = client or CensusClient(CENSUS_CACHE_DIR / "blockgroups", force_refresh)
     def query_blockgroups(year, county):
         url = f"https://api.census.gov/data/{year}/acs/acs5"
         params = {
