@@ -7,3 +7,4 @@ pyproj>=3.6
 pyogrio>=0.7
 folium>=0.15
 jupyter>=1.0
+requests>=2.31

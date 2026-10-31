@@ -73,6 +73,10 @@ Put these in `data/processed/`, from the shared Drive:
 
 ## How to run
 
+For Hanzhen's consolidated ACS cleaning, coverage exports, Vital Signs conversion,
+and county daytime population merge, see [the cleaning handoff](docs/hanzhen_cleaning.md).
+Start with `python -m src.prepare_data --help`.
+
 ### Locally
 
 ```bash
