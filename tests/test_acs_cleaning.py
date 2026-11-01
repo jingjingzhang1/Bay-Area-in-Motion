@@ -145,5 +145,28 @@ class TractTests(unittest.TestCase):
         self.assertEqual(list(tracts.flag_relative_moe_gt_50pct), [0, 1])
 
 
+class SpatialJoinTests(unittest.TestCase):
+    def test_tract_internal_point_within_place(self):
+        try:
+            import geopandas as gpd
+            from shapely.geometry import box
+        except ImportError:
+            self.skipTest("geopandas not installed")
+        from src.data.clean_tiger import tract_to_place
+        from src.analysis.daytime_population import city_daytime
+        tracts = gpd.GeoDataFrame({"tract_geoid": ["06001400100", "06001400200"], "county_fips": ["06001"] * 2},
+                                  geometry=[box(0, 0, 1, 1), box(5, 5, 6, 6)], crs="EPSG:26910")
+        places = gpd.GeoDataFrame({"place_geoid": ["0600562"], "place_name": ["Alameda"], "incorporated": [True]},
+                                  geometry=[box(-1, -1, 2, 2)], crs="EPSG:26910")
+        lookup = tract_to_place(tracts, places).set_index("tract_geoid")
+        self.assertEqual(lookup.loc["06001400100", "place_name"], "Alameda")
+        self.assertEqual(lookup.loc["06001400200", "place_name"], "Unincorporated")
+        wac_rac = pd.DataFrame({"year": [2023, 2023], "tract_geoid": ["06001400100", "06001400200"],
+                                "county_fips": ["06001"] * 2, "WAC": [100, 10], "RAC": [50, 30]})
+        city = city_daytime(wac_rac, lookup.reset_index()).set_index("place_name")
+        self.assertEqual(city.loc["Alameda", "net_jobs"], 50)
+        self.assertEqual(city.loc["Unincorporated Alameda", "net_jobs"], -20)
+
+
 if __name__ == "__main__":
     unittest.main()

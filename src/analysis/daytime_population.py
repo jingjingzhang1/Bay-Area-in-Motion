@@ -80,3 +80,26 @@ def tract_net_change(wac_rac, start, end):
     chg = (t1 - t0).dropna().rename("delta_net_jobs").reset_index()
     chg["county_name"] = chg["tract_geoid"].str[:5].map(BAY_AREA_COUNTIES)
     return chg
+
+
+def city_daytime(wac_rac, tract_to_place, tract_population=None):
+    """Sum tract WAC/RAC (and fixed tract population, if given) to cities using the spatial join.
+
+    Tracts outside every place are grouped as 'Unincorporated <county>'.
+    """
+    check_wac_rac(wac_rac)
+    lookup = tract_to_place[["tract_geoid", "place_geoid", "place_name", "incorporated"]]
+    data = wac_rac.merge(lookup, on="tract_geoid", how="left", validate="many_to_one")
+    unincorporated = data["place_geoid"].isna()
+    data.loc[unincorporated, "place_name"] = "Unincorporated " + data.loc[unincorporated, "county_fips"].map(BAY_AREA_COUNTIES)
+    data.loc[unincorporated, "place_geoid"] = "U" + data.loc[unincorporated, "county_fips"]
+    columns = ["WAC", "RAC"]
+    if tract_population is not None:
+        data = data.merge(tract_population[["tract_geoid", "population"]], on="tract_geoid", how="left")
+        columns.append("population")
+    city = data.groupby(["year", "place_geoid", "place_name"], as_index=False).agg(
+        **{c: (c, "sum") for c in columns}, tracts=("tract_geoid", "nunique"))
+    city["net_jobs"] = city["WAC"] - city["RAC"]
+    if "population" in city:
+        city["daytime_proxy"] = city["population"] + city["net_jobs"]
+    return city.sort_values(["year", "place_name"]).reset_index(drop=True)

@@ -53,6 +53,14 @@ def run_cleaning(extras=False, force_refresh=False):
     else:
         clean_acs_county(force_refresh=force_refresh)
 
+    print("\n== Cleaning: TIGER tracts and tract-to-city spatial join ==")
+    from src.data.clean_tiger import clean_tiger
+    from src.utils.config import TRACT_TO_PLACE
+    if TRACT_TO_PLACE.exists():
+        print(f"Skipping {TRACT_TO_PLACE.name} (already built)")
+    else:
+        clean_tiger()
+
     print("\n== Cleaning: ACS tract population ==")
     if not missing(RAW_ACS5_TRACT_ZIP, "ACS 5-year tract B01003 download"):
         clean_acs_tract()
@@ -122,10 +130,15 @@ def run_analysis():
         chg = day.tract_net_change(wac_rac, YEARS[0], YEARS[-1])
         chg.to_csv(TABLES_DIR / f"daytime_tract_net_change_{YEARS[0]}_{YEARS[-1]}.csv", index=False)
         results["tract_change"] = chg
+        import pandas as pd
+        from src.utils.config import TRACT_TO_PLACE
+        tract_pop = None
         if ACS_TRACT_POPULATION.exists():
-            import pandas as pd
             tract_pop = pd.read_csv(ACS_TRACT_POPULATION, dtype={"tract_geoid": str, "county_fips": str})
             day.tract_daytime(wac_rac, tract_pop).to_csv(TABLES_DIR / "daytime_tract.csv", index=False)
+        if TRACT_TO_PLACE.exists():
+            lookup = pd.read_csv(TRACT_TO_PLACE, dtype={"tract_geoid": str, "county_fips": str, "place_geoid": str})
+            day.city_daytime(wac_rac, lookup, tract_pop).to_csv(TABLES_DIR / "daytime_city.csv", index=False)
     return results
 
 
