@@ -53,3 +53,10 @@ Each section lists what the step does, why, and what to report. Code locations a
 
 - TIGER/Line 2020 area-water polygons for the nine counties (3,518 polygons), combined into one GeoPackage and reprojected to the project CRS, EPSG:26910 (NAD83 / UTM 10N, meters). It already includes San Francisco Bay, San Pablo Bay and the Pacific Ocean, so no separate MTC Bay layer is needed, and each TIGER file is cut at its county line, so no extra clipping is needed.
 - `add_water(ax, crs)` draws it above the tract data on every map, so all maps show water the same way (mentor Kaya's suggestion).
+
+## Tract-to-city spatial join [`src/data/clean_tiger.py`]
+
+- TIGER/Line 2020 tracts (1,772 in the nine counties) and California places (incorporated cities and CDPs), both reprojected to EPSG:26910.
+- **Spatial join:** each tract's internal point (a point guaranteed to lie inside the tract) is matched to the place polygon that contains it (`geopandas.sjoin`, predicate `within`). 1,582 tracts fall in 151 places (1,491 in incorporated cities); 190 are unincorporated and are grouped as "Unincorporated <county>".
+- Tract WAC/RAC (and the fixed tract population) are then summed to cities in `daytime_population.city_daytime`; city totals add back up to the regional total.
+- Limitation: a tract that straddles a city boundary is assigned wholly to the city containing its internal point.

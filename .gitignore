@@ -1,14 +1,7 @@
-# Data files are too large for GitHub; see README "Getting the data"
-data/raw/*
-data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-*.csv.gz
-*.zip
-*.gpkg
-*.shp
-*.shx
-*.dbf
+# Raw and processed data ARE committed (course requirement), as long as each file is
+# under 98 MB. Only caches and downloads that the code rebuilds are left out.
+data/processed/census_api_cache/
+data/raw/tiger_water/
 
 # Python / Jupyter
 __pycache__/

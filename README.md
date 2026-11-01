@@ -47,13 +47,14 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 │   │   ├── clean_acs_tract.py          # ACS 5-year tract population + MOE, Vital Signs check
 │   │   ├── clean_acs_places.py         # optional: ACS 1-year city coverage
 │   │   ├── clean_acs_blockgroups.py    # optional: ACS 5-year block-group coverage
+│   │   ├── clean_tiger.py              # TIGER tracts/places + tract-to-city spatial join
 │   │   ├── clean_water.py              # shared water layer for maps (TIGER area water)
 │   │   ├── census_api.py               # shared Census API client (cache, retries, key from env)
 │   │   └── convert_vital_signs.py      # optional: Vital Signs geodatabase -> shapefile (needs GDAL)
 │   ├── analysis/
 │   │   ├── od_corridors.py             # tract flows, county corridors, cross-county share
 │   │   ├── validation.py               # OD vs WAC/RAC and OD vs ACS checks
-│   │   └── daytime_population.py       # county and tract daytime proxies, WFH change, tract change
+│   │   └── daytime_population.py       # county, city and tract daytime proxies, WFH change, tract change
 │   ├── visualization/
 │   │   ├── plot_od.py                  # corridor trends, tract gain/loss
 │   │   ├── plot_acs.py                 # WFH share, LODES vs ACS proxies, county daytime trend
@@ -73,20 +74,17 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 
 ## Getting the data
 
-Data files are too large for GitHub. Download them, or copy them from the team's shared Google Drive folder, into these locations. Keep the original Census file names.
+Raw and processed data are included in `data/` (every file is under GitHub's 100 MB limit; files larger than 98 MB would go only in the submitted ZIP). Raw files keep their original Census names and are never edited; everything in `data/processed/` is rebuilt from `data/raw/` by `python -m src.main clean`.
 
-| Put in | File(s) | Where to get it |
+| Folder | File(s) | Source |
 |---|---|---|
-| `data/raw/lodes/` | `ca_od_main_JT01_{2017..2023}.csv.gz` | LODES8 `ca/od/` |
+| `data/raw/lodes/` | `ca_od_main_JT01_{2017..2023}.csv.gz`, `ca_xwalk.csv.gz` | LODES8 `ca/od/` and `ca/` |
 | `data/raw/lodes/` | `ca_wac_S000_JT01_{2017..2023}.csv.gz`, `ca_rac_S000_JT01_{2017..2023}.csv.gz` | LODES8 `ca/wac/` and `ca/rac/` |
-| `data/raw/lodes/` | `ca_xwalk.csv.gz` | LODES8 `ca/` |
-| `data/raw/acs/` | `ACSDT5Y2023.B01003.zip` (rename the data.census.gov download to this) | data.census.gov, table B01003, 2023 ACS 5-year, all California tracts |
-| `data/raw/vital_signs/` (optional) | `vital_signs_tract_population_2017_2024.csv` | MTC Vital Signs, Population by tract |
+| `data/raw/acs/` | `ACSDT5Y2023.B01003.zip` | data.census.gov, table B01003, 2023 ACS 5-year, all California tracts |
+| `data/raw/vital_signs/` | `vital_signs_tract_population_2017_2024.csv` | MTC Vital Signs, Population by tract |
+| `data/processed/` | `tiger_tracts_bay_area_2020.gpkg`, `tiger_tract_to_place_2020.csv`, `lodes_od_bay_area_{year}.csv.gz`, `lodes_xwalk_bay_area.csv.gz`, `lodes_wac_rac_tracts_2017_2023.csv`, `acs1_county_2017_2024.csv`, `acs5_tract_population_2023.csv`, `tiger_water_bay_area_2020.gpkg` | written by `src.main clean` |
 
-The county ACS table is downloaded automatically from the Census API. Setting `CENSUS_API_KEY` in your shell is optional.
-
-If you already have cleaned files from the shared Drive, put them in `data/processed/` under these names and that step is skipped:
-`lodes_wac_rac_tracts_2017_2023.csv`, `acs1_county_2017_2024.csv`, `acs5_tract_population_2023.csv`, `lodes_od_bay_area_{year}.csv.gz`.
+LODES files come from https://lehd.ces.census.gov/data/lodes/LODES8/ca/. The county ACS table is downloaded from the Census API by the code; setting `CENSUS_API_KEY` in your shell is optional. TIGER 2020 tracts and places are downloaded to `data/raw/tiger/` by `python -m src.main clean`; the water layer by `python -m src.main clean --extras`.
 
 ## How to run
 
@@ -139,6 +137,7 @@ os.environ["BAY_DATA_DIR"] = "/content/drive/My Drive/<folder containing raw/ an
 | `outputs/tables/validation_od_vs_wac_rac.csv`, `validation_od_vs_acs.csv` | ballpark checks of the OD cleaning |
 | `outputs/tables/daytime_county.csv` | county LODES and ACS daytime proxies, WFH share, by year |
 | `outputs/tables/daytime_county_wfh_change.csv` | WFH share by county, 2017 vs 2023 |
+| `outputs/tables/daytime_city.csv` | city (place) WAC, RAC, net jobs and daytime proxy by year, via the tract-to-city spatial join |
 | `outputs/tables/daytime_tract.csv` | tract daytime proxy by year (fixed 2023 ACS 5-year population) |
 | `outputs/tables/daytime_tract_net_change_2017_2023.csv` | change in net jobs per tract |
 | `outputs/figures/fig_od_top_corridors_by_year.png` | top commuting corridors, 2017–2023 |

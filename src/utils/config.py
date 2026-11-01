@@ -52,6 +52,8 @@ ACS_BLOCKGROUPS_DIR = PROCESSED_DIR / "acs5_blockgroups"
 CENSUS_CACHE_DIR = PROCESSED_DIR / "census_api_cache"
 VITAL_SIGNS_SHAPEFILE_DIR = PROCESSED_DIR / "vital_signs_shapefile"
 WATER_LAYER = PROCESSED_DIR / "tiger_water_bay_area_2020.gpkg"
+TIGER_TRACTS = PROCESSED_DIR / "tiger_tracts_bay_area_2020.gpkg"
+TRACT_TO_PLACE = PROCESSED_DIR / "tiger_tract_to_place_2020.csv"
 
 
 def raw_od_path(year):
