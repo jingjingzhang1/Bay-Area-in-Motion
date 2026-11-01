@@ -10,11 +10,12 @@ Each section lists what the step does, why, and what to report. Code locations a
 - County and tract IDs are the first 5 and 11 digits of the 2020 block ID. LODES v8 uses 2020 blocks, which nest inside 2020 tracts and counties. All Bay Area block IDs in the 2019 and 2023 LODES files matched TIGER 2020 blocks.
 - Row counts for every year are written to `outputs/tables/od_row_log.csv`.
 
-## LODES WAC/RAC [`src/data/clean_wac_rac.py`]
+## LODES WAC/RAC [`src/data/clean_wac_rac.py`] (Happy)
 
 - Uses the all-jobs total (C000) for primary jobs (JT01), summed from blocks to 2020 tracts. WAC is summed by work block and RAC by home block.
 - A tract with jobs on only one side gets 0 on the other side, since it has no jobs or no resident workers recorded.
-- Output layout matches the team's earlier cleaned file: `tract_geoid, WAC, RAC, net_change, year, county_fips`, about 1,765 tracts × 7 years. The other 7 of the 1,772 Bay Area tracts are water tracts with zero population.
+- Example (2017): 252,128 statewide WAC blocks -> 49,244 in the Bay Area (80.5% dropped); 363,224 RAC blocks -> 62,832 (82.7% dropped).
+- Output: `tract_geoid, WAC, RAC, net_change, year, county_fips`, 1,765 tracts × 7 years = 12,355 rows, no duplicates or negative counts. All 1,765 tracts match TIGER 2020 tract GEOIDs (100%); the other 7 of the 1,772 TIGER tracts are water tracts with zero population.
 
 ## ACS county [`src/data/clean_acs_county.py`]
 
@@ -47,3 +48,8 @@ Each section lists what the step does, why, and what to report. Code locations a
 - Places: a fixed 2023 roster of incorporated places with ACS 1-year 2017–2023 estimates. Places too small for ACS 1-year stay missing. This is not an annual boundary crosswalk.
 - Block groups: one ACS 5-year release (2020–2024) with MOEs and annotations. It is a single release, not five annual observations.
 - `convert_vital_signs.py` needs GDAL (`conda install -c conda-forge gdal`) and refuses to overwrite an existing output folder.
+
+## Map water layer [`src/data/clean_water.py`, `src/visualization/maps.py`] (Happy)
+
+- TIGER/Line 2020 area-water polygons for the nine counties (3,518 polygons), combined into one GeoPackage and reprojected to the project CRS, EPSG:26910 (NAD83 / UTM 10N, meters). It already includes San Francisco Bay, San Pablo Bay and the Pacific Ocean, so no separate MTC Bay layer is needed, and each TIGER file is cut at its county line, so no extra clipping is needed.
+- `add_water(ax, crs)` draws it above the tract data on every map, so all maps show water the same way (mentor Kaya's suggestion).

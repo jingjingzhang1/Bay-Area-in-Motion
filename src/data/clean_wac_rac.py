@@ -1,8 +1,13 @@
-"""Clean LODES WAC (jobs by workplace) and RAC (jobs by residence) into one tract table.
+"""Clean LODES WAC (jobs by workplace) and RAC (jobs by residence) into one tract table (Happy Feng).
 
-Output: one row per Bay Area tract and year with WAC, RAC and net_change = WAC - RAC.
-Same layout as the team's cleaned file (Happy's notebook): about 1,765 tracts x 7 years.
-Only all-jobs totals (C000) for primary jobs (JT01) are used.
+Steps (from Happy's LODES_WAC_RAC_Cleaning notebook):
+1. keep blocks whose county is one of the nine Bay Area counties
+   (2017: 252,128 -> 49,244 WAC blocks, 363,224 -> 62,832 RAC blocks);
+2. sum all-jobs totals (C000, primary jobs JT01) from 2020 blocks to tracts;
+3. outer-join WAC and RAC; a tract missing on one side gets 0;
+4. net_change = WAC - RAC.
+Result: 1,765 tracts x 7 years = 12,355 rows; all 1,765 match TIGER 2020 tracts
+(the other 7 TIGER tracts are water).
 """
 from pathlib import Path
 

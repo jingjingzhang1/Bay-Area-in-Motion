@@ -4,7 +4,7 @@
     python -m src.main clean           # only the data cleaning step
     python -m src.main analyze         # tables in outputs/tables
     python -m src.main figures         # charts in outputs/figures
-    python -m src.main clean --extras  # also city (place) and block-group ACS coverage
+    python -m src.main clean --extras  # also the map water layer and city / block-group ACS coverage
 
 Each step skips work whose output already exists and prints MISSING for an input
 that has not been downloaded yet, so a partial run still finishes.
@@ -58,6 +58,13 @@ def run_cleaning(extras=False, force_refresh=False):
         clean_acs_tract()
 
     if extras:
+        from src.data.clean_water import clean_water
+        from src.utils.config import WATER_LAYER
+        print("\n== Cleaning: shared water layer for maps ==")
+        if WATER_LAYER.exists():
+            print(f"Skipping {WATER_LAYER.name} (already built)")
+        else:
+            clean_water()
         from src.data.clean_acs_places import clean_acs_places
         from src.data.clean_acs_blockgroups import clean_acs_blockgroups
         from src.visualization.plot_acs_coverage import plot_places, plot_blockgroups
@@ -134,6 +141,7 @@ def run_figures(results):
     if "county" in results:
         print(plot_acs.plot_wfh_share(results["county"]))
         print(plot_acs.plot_lodes_vs_acs(results["county"], YEARS[-1]))
+        print(plot_acs.plot_county_daytime_trend(results["county"]))
 
 
 def main():

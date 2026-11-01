@@ -18,6 +18,7 @@ TABLES_DIR = OUTPUT_DIR / "tables"
 FIGURES_DIR = OUTPUT_DIR / "figures"
 
 YEARS = list(range(2017, 2024))
+PROJECT_CRS = "EPSG:26910"   # NAD83 / UTM zone 10N, meters; used for every map and area calculation
 PRE_COVID_YEAR = 2019
 CHUNK_ROWS = 1_000_000
 
@@ -50,6 +51,7 @@ ACS_PLACES_DIR = PROCESSED_DIR / "acs1_places"
 ACS_BLOCKGROUPS_DIR = PROCESSED_DIR / "acs5_blockgroups"
 CENSUS_CACHE_DIR = PROCESSED_DIR / "census_api_cache"
 VITAL_SIGNS_SHAPEFILE_DIR = PROCESSED_DIR / "vital_signs_shapefile"
+WATER_LAYER = PROCESSED_DIR / "tiger_water_bay_area_2020.gpkg"
 
 
 def raw_od_path(year):
