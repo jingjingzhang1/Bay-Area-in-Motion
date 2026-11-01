@@ -18,6 +18,7 @@ TABLES_DIR = OUTPUT_DIR / "tables"
 FIGURES_DIR = OUTPUT_DIR / "figures"
 
 YEARS = list(range(2017, 2024))
+PROJECT_CRS = "EPSG:26910"   # NAD83 / UTM zone 10N, meters; used for every map and area calculation
 PRE_COVID_YEAR = 2019
 CHUNK_ROWS = 1_000_000
 

@@ -51,5 +51,5 @@ Each section lists what the step does, why, and what to report. Code locations a
 
 ## Map water layer [`src/data/clean_water.py`, `src/visualization/maps.py`] (Happy)
 
-- TIGER/Line 2020 area-water polygons for the nine counties (3,518 polygons, EPSG:4269), combined into one GeoPackage. It covers the Bay, ocean shoreline, lakes and reservoirs.
+- TIGER/Line 2020 area-water polygons for the nine counties (3,518 polygons), combined into one GeoPackage and reprojected to the project CRS, EPSG:26910 (NAD83 / UTM 10N, meters). It already includes San Francisco Bay, San Pablo Bay and the Pacific Ocean, so no separate MTC Bay layer is needed, and each TIGER file is cut at its county line, so no extra clipping is needed.
 - `add_water(ax, crs)` draws it above the tract data on every map, so all maps show water the same way (mentor Kaya's suggestion).
