@@ -73,20 +73,17 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 
 ## Getting the data
 
-Data files are too large for GitHub. Download them, or copy them from the team's shared Google Drive folder, into these locations. Keep the original Census file names.
+Raw and processed data are included in `data/` (every file is under GitHub's 100 MB limit; files larger than 98 MB would go only in the submitted ZIP). Raw files keep their original Census names and are never edited; everything in `data/processed/` is rebuilt from `data/raw/` by `python -m src.main clean`.
 
-| Put in | File(s) | Where to get it |
+| Folder | File(s) | Source |
 |---|---|---|
-| `data/raw/lodes/` | `ca_od_main_JT01_{2017..2023}.csv.gz` | LODES8 `ca/od/` |
+| `data/raw/lodes/` | `ca_od_main_JT01_{2017..2023}.csv.gz`, `ca_xwalk.csv.gz` | LODES8 `ca/od/` and `ca/` |
 | `data/raw/lodes/` | `ca_wac_S000_JT01_{2017..2023}.csv.gz`, `ca_rac_S000_JT01_{2017..2023}.csv.gz` | LODES8 `ca/wac/` and `ca/rac/` |
-| `data/raw/lodes/` | `ca_xwalk.csv.gz` | LODES8 `ca/` |
-| `data/raw/acs/` | `ACSDT5Y2023.B01003.zip` (rename the data.census.gov download to this) | data.census.gov, table B01003, 2023 ACS 5-year, all California tracts |
-| `data/raw/vital_signs/` (optional) | `vital_signs_tract_population_2017_2024.csv` | MTC Vital Signs, Population by tract |
+| `data/raw/acs/` | `ACSDT5Y2023.B01003.zip` | data.census.gov, table B01003, 2023 ACS 5-year, all California tracts |
+| `data/raw/vital_signs/` | `vital_signs_tract_population_2017_2024.csv` | MTC Vital Signs, Population by tract |
+| `data/processed/` | `lodes_od_bay_area_{year}.csv.gz`, `lodes_xwalk_bay_area.csv.gz`, `lodes_wac_rac_tracts_2017_2023.csv`, `acs1_county_2017_2024.csv`, `acs5_tract_population_2023.csv`, `tiger_water_bay_area_2020.gpkg` | written by `src.main clean` |
 
-The county ACS table is downloaded automatically from the Census API. Setting `CENSUS_API_KEY` in your shell is optional.
-
-If you already have cleaned files from the shared Drive, put them in `data/processed/` under these names and that step is skipped:
-`lodes_wac_rac_tracts_2017_2023.csv`, `acs1_county_2017_2024.csv`, `acs5_tract_population_2023.csv`, `lodes_od_bay_area_{year}.csv.gz`.
+LODES files come from https://lehd.ces.census.gov/data/lodes/LODES8/ca/. The county ACS table is downloaded from the Census API by the code; setting `CENSUS_API_KEY` in your shell is optional. The water layer is downloaded from TIGER/Line by `python -m src.main clean --extras`.
 
 ## How to run
 
