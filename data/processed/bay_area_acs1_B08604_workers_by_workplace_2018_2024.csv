@@ -1,0 +1,55 @@
+year,GEOID,county_name,NAME,workers_workplace
+2018,06001,Alameda,"Alameda County, California",785749
+2018,06013,Contra Costa,"Contra Costa County, California",408670
+2018,06041,Marin,"Marin County, California",124987
+2018,06055,Napa,"Napa County, California",78930
+2018,06075,San Francisco,"San Francisco County, California",773732
+2018,06081,San Mateo,"San Mateo County, California",433501
+2018,06085,Santa Clara,"Santa Clara County, California",1135081
+2018,06095,Solano,"Solano County, California",154057
+2018,06097,Sonoma,"Sonoma County, California",240996
+2019,06001,Alameda,"Alameda County, California",770077
+2019,06013,Contra Costa,"Contra Costa County, California",415294
+2019,06041,Marin,"Marin County, California",123797
+2019,06055,Napa,"Napa County, California",78979
+2019,06075,San Francisco,"San Francisco County, California",794514
+2019,06081,San Mateo,"San Mateo County, California",430677
+2019,06085,Santa Clara,"Santa Clara County, California",1150358
+2019,06095,Solano,"Solano County, California",158555
+2019,06097,Sonoma,"Sonoma County, California",235736
+2021,06001,Alameda,"Alameda County, California",848811
+2021,06013,Contra Costa,"Contra Costa County, California",448617
+2021,06041,Marin,"Marin County, California",136628
+2021,06055,Napa,"Napa County, California",77903
+2021,06075,San Francisco,"San Francisco County, California",563953
+2021,06081,San Mateo,"San Mateo County, California",400828
+2021,06085,Santa Clara,"Santa Clara County, California",1020618
+2021,06095,Solano,"Solano County, California",167166
+2021,06097,Sonoma,"Sonoma County, California",220723
+2022,06001,Alameda,"Alameda County, California",847433
+2022,06013,Contra Costa,"Contra Costa County, California",454217
+2022,06041,Marin,"Marin County, California",130685
+2022,06055,Napa,"Napa County, California",75376
+2022,06075,San Francisco,"San Francisco County, California",603177
+2022,06081,San Mateo,"San Mateo County, California",417093
+2022,06085,Santa Clara,"Santa Clara County, California",1075112
+2022,06095,Solano,"Solano County, California",161266
+2022,06097,Sonoma,"Sonoma County, California",230499
+2023,06001,Alameda,"Alameda County, California",811846
+2023,06013,Contra Costa,"Contra Costa County, California",430434
+2023,06041,Marin,"Marin County, California",126860
+2023,06055,Napa,"Napa County, California",80661
+2023,06075,San Francisco,"San Francisco County, California",639133
+2023,06081,San Mateo,"San Mateo County, California",420844
+2023,06085,Santa Clara,"Santa Clara County, California",1122756
+2023,06095,Solano,"Solano County, California",162420
+2023,06097,Sonoma,"Sonoma County, California",231243
+2024,06001,Alameda,"Alameda County, California",826963
+2024,06013,Contra Costa,"Contra Costa County, California",415217
+2024,06041,Marin,"Marin County, California",131195
+2024,06055,Napa,"Napa County, California",79374
+2024,06075,San Francisco,"San Francisco County, California",632129
+2024,06081,San Mateo,"San Mateo County, California",440105
+2024,06085,Santa Clara,"Santa Clara County, California",1155877
+2024,06095,Solano,"Solano County, California",165485
+2024,06097,Sonoma,"Sonoma County, California",228656

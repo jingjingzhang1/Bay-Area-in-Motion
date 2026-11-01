@@ -1,0 +1,102 @@
+NAME,state,place,county_name,jurisdiction_name,place_type,GEOID
+"Alameda city, California",06,00562,Alameda,Alameda city,incorporated,0600562
+"Albany city, California",06,00674,Alameda,Albany city,incorporated,0600674
+"Berkeley city, California",06,06000,Alameda,Berkeley city,incorporated,0606000
+"Dublin city, California",06,20018,Alameda,Dublin city,incorporated,0620018
+"Emeryville city, California",06,22594,Alameda,Emeryville city,incorporated,0622594
+"Fremont city, California",06,26000,Alameda,Fremont city,incorporated,0626000
+"Hayward city, California",06,33000,Alameda,Hayward city,incorporated,0633000
+"Livermore city, California",06,41992,Alameda,Livermore city,incorporated,0641992
+"Newark city, California",06,50916,Alameda,Newark city,incorporated,0650916
+"Oakland city, California",06,53000,Alameda,Oakland city,incorporated,0653000
+"Piedmont city, California",06,56938,Alameda,Piedmont city,incorporated,0656938
+"Pleasanton city, California",06,57792,Alameda,Pleasanton city,incorporated,0657792
+"San Leandro city, California",06,68084,Alameda,San Leandro city,incorporated,0668084
+"Union City city, California",06,81204,Alameda,Union City city,incorporated,0681204
+"Antioch city, California",06,02252,Contra Costa,Antioch city,incorporated,0602252
+"Brentwood city, California",06,08142,Contra Costa,Brentwood city,incorporated,0608142
+"Clayton city, California",06,13882,Contra Costa,Clayton city,incorporated,0613882
+"Concord city, California",06,16000,Contra Costa,Concord city,incorporated,0616000
+"Danville town, California",06,17988,Contra Costa,Danville town,incorporated,0617988
+"El Cerrito city, California",06,21796,Contra Costa,El Cerrito city,incorporated,0621796
+"Hercules city, California",06,33308,Contra Costa,Hercules city,incorporated,0633308
+"Lafayette city, California",06,39122,Contra Costa,Lafayette city,incorporated,0639122
+"Martinez city, California",06,46114,Contra Costa,Martinez city,incorporated,0646114
+"Moraga town, California",06,49187,Contra Costa,Moraga town,incorporated,0649187
+"Oakley city, California",06,53070,Contra Costa,Oakley city,incorporated,0653070
+"Orinda city, California",06,54232,Contra Costa,Orinda city,incorporated,0654232
+"Pinole city, California",06,57288,Contra Costa,Pinole city,incorporated,0657288
+"Pittsburg city, California",06,57456,Contra Costa,Pittsburg city,incorporated,0657456
+"Pleasant Hill city, California",06,57764,Contra Costa,Pleasant Hill city,incorporated,0657764
+"Richmond city, California",06,60620,Contra Costa,Richmond city,incorporated,0660620
+"San Pablo city, California",06,68294,Contra Costa,San Pablo city,incorporated,0668294
+"San Ramon city, California",06,68378,Contra Costa,San Ramon city,incorporated,0668378
+"Walnut Creek city, California",06,83346,Contra Costa,Walnut Creek city,incorporated,0683346
+"Belvedere city, California",06,05164,Marin,Belvedere city,incorporated,0605164
+"Corte Madera town, California",06,16462,Marin,Corte Madera town,incorporated,0616462
+"Fairfax town, California",06,23168,Marin,Fairfax town,incorporated,0623168
+"Larkspur city, California",06,40438,Marin,Larkspur city,incorporated,0640438
+"Mill Valley city, California",06,47710,Marin,Mill Valley city,incorporated,0647710
+"Novato city, California",06,52582,Marin,Novato city,incorporated,0652582
+"Ross town, California",06,62980,Marin,Ross town,incorporated,0662980
+"San Anselmo town, California",06,64434,Marin,San Anselmo town,incorporated,0664434
+"San Rafael city, California",06,68364,Marin,San Rafael city,incorporated,0668364
+"Sausalito city, California",06,70364,Marin,Sausalito city,incorporated,0670364
+"Tiburon town, California",06,78666,Marin,Tiburon town,incorporated,0678666
+"American Canyon city, California",06,01640,Napa,American Canyon city,incorporated,0601640
+"Calistoga city, California",06,09892,Napa,Calistoga city,incorporated,0609892
+"Napa city, California",06,50258,Napa,Napa city,incorporated,0650258
+"St. Helena city, California",06,64140,Napa,St. Helena city,incorporated,0664140
+"Yountville city, California",06,86930,Napa,Yountville city,incorporated,0686930
+"San Francisco city, California",06,67000,San Francisco,San Francisco city,incorporated,0667000
+"Atherton town, California",06,03092,San Mateo,Atherton town,incorporated,0603092
+"Belmont city, California",06,05108,San Mateo,Belmont city,incorporated,0605108
+"Brisbane city, California",06,08310,San Mateo,Brisbane city,incorporated,0608310
+"Burlingame city, California",06,09066,San Mateo,Burlingame city,incorporated,0609066
+"Colma town, California",06,14736,San Mateo,Colma town,incorporated,0614736
+"Daly City city, California",06,17918,San Mateo,Daly City city,incorporated,0617918
+"East Palo Alto city, California",06,20956,San Mateo,East Palo Alto city,incorporated,0620956
+"Foster City city, California",06,25338,San Mateo,Foster City city,incorporated,0625338
+"Half Moon Bay city, California",06,31708,San Mateo,Half Moon Bay city,incorporated,0631708
+"Hillsborough town, California",06,33798,San Mateo,Hillsborough town,incorporated,0633798
+"Menlo Park city, California",06,46870,San Mateo,Menlo Park city,incorporated,0646870
+"Millbrae city, California",06,47486,San Mateo,Millbrae city,incorporated,0647486
+"Pacifica city, California",06,54806,San Mateo,Pacifica city,incorporated,0654806
+"Portola Valley town, California",06,58380,San Mateo,Portola Valley town,incorporated,0658380
+"Redwood City city, California",06,60102,San Mateo,Redwood City city,incorporated,0660102
+"San Bruno city, California",06,65028,San Mateo,San Bruno city,incorporated,0665028
+"San Carlos city, California",06,65070,San Mateo,San Carlos city,incorporated,0665070
+"San Mateo city, California",06,68252,San Mateo,San Mateo city,incorporated,0668252
+"South San Francisco city, California",06,73262,San Mateo,South San Francisco city,incorporated,0673262
+"Woodside town, California",06,86440,San Mateo,Woodside town,incorporated,0686440
+"Campbell city, California",06,10345,Santa Clara,Campbell city,incorporated,0610345
+"Cupertino city, California",06,17610,Santa Clara,Cupertino city,incorporated,0617610
+"Gilroy city, California",06,29504,Santa Clara,Gilroy city,incorporated,0629504
+"Los Altos Hills town, California",06,43294,Santa Clara,Los Altos Hills town,incorporated,0643294
+"Los Altos city, California",06,43280,Santa Clara,Los Altos city,incorporated,0643280
+"Los Gatos town, California",06,44112,Santa Clara,Los Gatos town,incorporated,0644112
+"Milpitas city, California",06,47766,Santa Clara,Milpitas city,incorporated,0647766
+"Monte Sereno city, California",06,48956,Santa Clara,Monte Sereno city,incorporated,0648956
+"Morgan Hill city, California",06,49278,Santa Clara,Morgan Hill city,incorporated,0649278
+"Mountain View city, California",06,49670,Santa Clara,Mountain View city,incorporated,0649670
+"Palo Alto city, California",06,55282,Santa Clara,Palo Alto city,incorporated,0655282
+"San Jose city, California",06,68000,Santa Clara,San Jose city,incorporated,0668000
+"Santa Clara city, California",06,69084,Santa Clara,Santa Clara city,incorporated,0669084
+"Saratoga city, California",06,70280,Santa Clara,Saratoga city,incorporated,0670280
+"Sunnyvale city, California",06,77000,Santa Clara,Sunnyvale city,incorporated,0677000
+"Benicia city, California",06,05290,Solano,Benicia city,incorporated,0605290
+"Dixon city, California",06,19402,Solano,Dixon city,incorporated,0619402
+"Fairfield city, California",06,23182,Solano,Fairfield city,incorporated,0623182
+"Rio Vista city, California",06,60984,Solano,Rio Vista city,incorporated,0660984
+"Suisun City city, California",06,75630,Solano,Suisun City city,incorporated,0675630
+"Vacaville city, California",06,81554,Solano,Vacaville city,incorporated,0681554
+"Vallejo city, California",06,81666,Solano,Vallejo city,incorporated,0681666
+"Cloverdale city, California",06,14190,Sonoma,Cloverdale city,incorporated,0614190
+"Cotati city, California",06,16560,Sonoma,Cotati city,incorporated,0616560
+"Healdsburg city, California",06,33056,Sonoma,Healdsburg city,incorporated,0633056
+"Petaluma city, California",06,56784,Sonoma,Petaluma city,incorporated,0656784
+"Rohnert Park city, California",06,62546,Sonoma,Rohnert Park city,incorporated,0662546
+"Santa Rosa city, California",06,70098,Sonoma,Santa Rosa city,incorporated,0670098
+"Sebastopol city, California",06,70770,Sonoma,Sebastopol city,incorporated,0670770
+"Sonoma city, California",06,72646,Sonoma,Sonoma city,incorporated,0672646
+"Windsor town, California",06,85922,Sonoma,Windsor town,incorporated,0685922

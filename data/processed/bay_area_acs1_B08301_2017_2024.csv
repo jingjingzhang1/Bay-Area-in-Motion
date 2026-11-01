@@ -1,0 +1,64 @@
+year,GEOID,county_name,NAME,workers_residence,work_from_home,work_from_home_pct
+2017,06001,Alameda,"Alameda County, California",770234.0,48079.0,6.242129015338196
+2017,06013,Contra Costa,"Contra Costa County, California",543260.0,40520.0,7.458675404042263
+2017,06041,Marin,"Marin County, California",125024.0,15449.0,12.356827489122088
+2017,06055,Napa,"Napa County, California",70861.0,2861.0,4.037481830626156
+2017,06075,San Francisco,"San Francisco County, California",523364.0,37465.0,7.158497718605024
+2017,06081,San Mateo,"San Mateo County, California",409921.0,19341.0,4.718226194803389
+2017,06085,Santa Clara,"Santa Clara County, California",971960.0,51206.0,5.268323799333306
+2017,06095,Solano,"Solano County, California",204776.0,9743.0,4.757881783021448
+2017,06097,Sonoma,"Sonoma County, California",251390.0,19224.0,7.647082222841004
+2018,06001,Alameda,"Alameda County, California",796952.0,55046.0,6.907065921159618
+2018,06013,Contra Costa,"Contra Costa County, California",560747.0,37975.0,6.772216347122677
+2018,06041,Marin,"Marin County, California",132566.0,20469.0,15.440610714662887
+2018,06055,Napa,"Napa County, California",66644.0,4302.0,6.455194766220515
+2018,06075,San Francisco,"San Francisco County, California",524742.0,33017.0,6.292044471378315
+2018,06081,San Mateo,"San Mateo County, California",407732.0,22137.0,5.429301600070635
+2018,06085,Santa Clara,"Santa Clara County, California",992175.0,50027.0,5.042154861793534
+2018,06095,Solano,"Solano County, California",214362.0,10853.0,5.062930929922281
+2018,06097,Sonoma,"Sonoma County, California",253870.0,18404.0,7.249379603734194
+2019,06001,Alameda,"Alameda County, California",812004.0,53235.0,6.556002187181344
+2019,06013,Contra Costa,"Contra Costa County, California",559646.0,38974.0,6.964045128527677
+2019,06041,Marin,"Marin County, California",128119.0,17884.0,13.958897587399216
+2019,06055,Napa,"Napa County, California",67719.0,4241.0,6.2626441619043405
+2019,06075,San Francisco,"San Francisco County, California",526022.0,39124.0,7.437711730688069
+2019,06081,San Mateo,"San Mateo County, California",412818.0,25374.0,6.1465343080970305
+2019,06085,Santa Clara,"Santa Clara County, California",995301.0,48468.0,4.869682638719342
+2019,06095,Solano,"Solano County, California",215285.0,10488.0,4.871681724226026
+2019,06097,Sonoma,"Sonoma County, California",251132.0,20384.0,8.116846917159105
+2021,06001,Alameda,"Alameda County, California",820292.0,287142.0,35.00485193077587
+2021,06013,Contra Costa,"Contra Costa County, California",546082.0,152844.0,27.989203086715914
+2021,06041,Marin,"Marin County, California",123636.0,44360.0,35.87951729269792
+2021,06055,Napa,"Napa County, California",,,
+2021,06075,San Francisco,"San Francisco County, California",438943.0,200083.0,45.58291167645913
+2021,06081,San Mateo,"San Mateo County, California",372133.0,122795.0,32.99761106916076
+2021,06085,Santa Clara,"Santa Clara County, California",931537.0,330900.0,35.521938473726756
+2021,06095,Solano,"Solano County, California",203334.0,25953.0,12.763728643512644
+2021,06097,Sonoma,"Sonoma County, California",232502.0,47845.0,20.578317605870055
+2022,06001,Alameda,"Alameda County, California",835685.0,234028.0,28.00433177572889
+2022,06013,Contra Costa,"Contra Costa County, California",555483.0,115159.0,20.731327511372985
+2022,06041,Marin,"Marin County, California",122594.0,40124.0,32.729171085044946
+2022,06055,Napa,"Napa County, California",,,
+2022,06075,San Francisco,"San Francisco County, California",465181.0,151314.0,32.52798373106382
+2022,06081,San Mateo,"San Mateo County, California",375625.0,95427.0,25.40485856905158
+2022,06085,Santa Clara,"Santa Clara County, California",967786.0,240372.0,24.837309074526807
+2022,06095,Solano,"Solano County, California",202290.0,26569.0,13.134114390231847
+2022,06097,Sonoma,"Sonoma County, California",240821.0,35126.0,14.585937272912247
+2023,06001,Alameda,"Alameda County, California",826474.0,168282.0,20.361439077333348
+2023,06013,Contra Costa,"Contra Costa County, California",560086.0,99371.0,17.742096749427766
+2023,06041,Marin,"Marin County, California",121331.0,31875.0,26.271109609250725
+2023,06055,Napa,"Napa County, California",67918.0,8760.0,12.89790629877205
+2023,06075,San Francisco,"San Francisco County, California",460397.0,112342.0,24.40111469014785
+2023,06081,San Mateo,"San Mateo County, California",377939.0,69928.0,18.502456745665306
+2023,06085,Santa Clara,"Santa Clara County, California",981958.0,160686.0,16.363836335158936
+2023,06095,Solano,"Solano County, California",207335.0,23047.0,11.11582704319097
+2023,06097,Sonoma,"Sonoma County, California",244909.0,36897.0,15.06559579272301
+2024,06001,Alameda,"Alameda County, California",858737.0,154971.0,18.046386728416266
+2024,06013,Contra Costa,"Contra Costa County, California",546458.0,94847.0,17.356686149713244
+2024,06041,Marin,"Marin County, California",123945.0,32166.0,25.951833474524992
+2024,06055,Napa,"Napa County, California",65567.0,9833.0,14.996873427181356
+2024,06075,San Francisco,"San Francisco County, California",468430.0,100347.0,21.421984074461502
+2024,06081,San Mateo,"San Mateo County, California",394856.0,68690.0,17.396215329132648
+2024,06085,Santa Clara,"Santa Clara County, California",996180.0,146556.0,14.711799072456785
+2024,06095,Solano,"Solano County, California",204889.0,22434.0,10.949343302959164
+2024,06097,Sonoma,"Sonoma County, California",239045.0,34052.0,14.245016628668242
