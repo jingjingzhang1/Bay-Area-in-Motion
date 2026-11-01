@@ -27,7 +27,7 @@ These are commuting-based proxies. They count primary jobs, not people physicall
 | ACS 1-year | B01003 population, B08301 workers by residence incl. work from home, B08604 workers by workplace, with 90% margins of error | 2017–2024 (no 2020 release) | County; places for coverage | Census API (downloaded by the code) |
 | ACS 5-year | B01003 tract population (2019–2023 period) | 2023 release | Tract | https://data.census.gov/table/ACSDT5Y2023.B01003 |
 | MTC Vital Signs | Tract population estimates (same values as ACS 5-year; used as a check) | 2017–2024 | Tract | https://vitalsigns.mtc.ca.gov |
-| TIGER/Line 2020 | Counties, tracts, blocks, places | 2020 vintage | — | https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html |
+| TIGER/Line 2020 | Counties, tracts, blocks, places; area water for the map water layer | 2020 vintage | — | https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html |
 
 All Census sources are public-domain U.S. Government data.
 
@@ -47,6 +47,7 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 │   │   ├── clean_acs_tract.py          # ACS 5-year tract population + MOE, Vital Signs check
 │   │   ├── clean_acs_places.py         # optional: ACS 1-year city coverage
 │   │   ├── clean_acs_blockgroups.py    # optional: ACS 5-year block-group coverage
+│   │   ├── clean_water.py              # shared water layer for maps (TIGER area water)
 │   │   ├── census_api.py               # shared Census API client (cache, retries, key from env)
 │   │   └── convert_vital_signs.py      # optional: Vital Signs geodatabase -> shapefile (needs GDAL)
 │   ├── analysis/
@@ -55,7 +56,8 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 │   │   └── daytime_population.py       # county and tract daytime proxies, WFH change, tract change
 │   ├── visualization/
 │   │   ├── plot_od.py                  # corridor trends, tract gain/loss
-│   │   ├── plot_acs.py                 # WFH share, LODES vs ACS proxies
+│   │   ├── plot_acs.py                 # WFH share, LODES vs ACS proxies, county daytime trend
+│   │   ├── maps.py                     # add_water(ax): shared water layer on every map
 │   │   └── plot_acs_coverage.py        # optional coverage charts
 │   └── utils/
 │       ├── config.py                   # all paths, file names, years, county codes
@@ -106,7 +108,7 @@ Run one step at a time:
 python -m src.main clean           # all data cleaning
 python -m src.main analyze         # tables only
 python -m src.main figures         # tables + charts
-python -m src.main clean --extras  # also city and block-group ACS coverage
+python -m src.main clean --extras  # also the map water layer and city / block-group ACS coverage
 python -m src.main clean --force-refresh   # download Census API tables again
 ```
 
@@ -143,6 +145,9 @@ os.environ["BAY_DATA_DIR"] = "/content/drive/My Drive/<folder containing raw/ an
 | `outputs/figures/fig_lodes_tract_gain_loss.png` | tracts with the largest gain and loss in net jobs |
 | `outputs/figures/fig_acs_wfh_share_by_county.png` | work-from-home share by county |
 | `outputs/figures/fig_acs_lodes_vs_acs_daytime.png` | LODES vs ACS county daytime proxies, 2023 |
+| `outputs/figures/fig_acs_county_daytime_trend.png` | county daytime proxies over time, LODES-based vs ACS-only |
+
+**Maps:** after `python -m src.main clean --extras`, call `add_water(ax, crs)` from `src.visualization.maps` after plotting the tracts, so the Bay, ocean and lakes show the same way on every map.
 
 ## Known limitations
 
