@@ -62,7 +62,11 @@ class CensusClient:
             try:
                 data = response.json()
             except ValueError:
-                raise RuntimeError(f"Non-JSON Census response: {year}/{dataset}") from None
+                hint = (
+                    " Set CENSUS_API_KEY in your environment for fresh Census downloads."
+                    if not self.api_key else " Check that your CENSUS_API_KEY is valid."
+                )
+                raise RuntimeError(f"Non-JSON Census response: {year}/{dataset}." + hint) from None
         if (not isinstance(data, list) or len(data) < 2
                 or not isinstance(data[0], list)
                 or any(not isinstance(row, list) or len(row) != len(data[0]) for row in data)):

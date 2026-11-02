@@ -92,6 +92,16 @@ class CensusTests(unittest.TestCase):
         self.assertNotIn(client.api_key, str(error.exception))
         self.assertFalse(client.cache_dir.exists())
 
+    def test_missing_key_html_explains_environment_setting(self):
+        client = CensusClient(self.root / "cache")
+        client.api_key = ""
+        client.session = Mock()
+        client.session.get.return_value.status_code = 200
+        client.session.get.return_value.json.side_effect = ValueError("HTML Missing Key page")
+        with self.assertRaisesRegex(RuntimeError, "Set CENSUS_API_KEY"):
+            client.table(2017, "acs/acs1", {"get": "NAME", "for": "county:001"})
+        self.assertFalse(client.cache_dir.exists())
+
     def test_valid_api_table_is_reused_from_cache(self):
         client = CensusClient(self.root / "cache")
         client.session = Mock()
