@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xml:lang="en"><Esri><CreaDate>20261028</CreaDate><CreaTime>13545200</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files\arcgis\pro\Resources\ArcToolbox\toolboxes\Data Management Tools.tbx\CalculateField" Date="20261028" Time="135452">CalculateField vital_signs_population_tracts pop_covid_c function1(!pop_2019!, !pop_2023!) PYTHON3 "def function1(firstyear, secondyear):
+    if firstyear != 0 and secondyear != 0:
+        return (firstyear - secondyear) / firstyear * 100
+    return -99999" FLOAT NO_ENFORCE_DOMAINS</Process><Process ToolSource="c:\program files\arcgis\pro\Resources\ArcToolbox\toolboxes\Data Management Tools.tbx\DeleteField" Date="20261028" Time="135514">DeleteField vital_signs_population_tracts pop_change DELETE_FIELDS</Process></lineage></DataProperties></Esri></metadata>

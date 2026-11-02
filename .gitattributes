@@ -1,0 +1,19 @@
+# Preserve contributed dataset bytes so inventory SHA-256 checksums survive checkout.
+/data/processed/acs1_jurisdiction_output/** -text
+/data/processed/acs5_blockgroup_output/** -text
+/data/processed/acs5_tract_check_output/** -text
+/data/processed/bay_area_acs1_B08301_2017_2024.csv -text
+/data/processed/bay_area_acs1_B08301_workers_by_where_they_live_and_working_from_home_2018_2024.csv -text
+/data/processed/bay_area_acs1_B08604_2017_2024.csv -text
+/data/processed/bay_area_acs1_B08604_workers_by_workplace_2018_2024.csv -text
+/data/processed/bay_area_acs1_population_2017_2024.csv -text
+/data/processed/bay_area_acs1_population_B01003_2018_2024.csv -text
+/data/processed/bay_area_daytime_population_merged.csv -text
+/data/processed/bay_area_wac_rac_2018_2023_cleaned.csv -text
+/data/processed/hanzhen_cleaning/** -text
+/data/processed/vital_signs_shapefile/** -text
+/data/raw/census_api_cache/** -text
+/data/raw/vital_signs/** -text
+/outputs/figures/Covid_pop_change.png -text
+/outputs/hanzhen_cleaning/** -text
+/reports/Covid_pop_change.pdf -text
