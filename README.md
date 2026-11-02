@@ -65,6 +65,7 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 │       └── helpers.py                  # shared helpers (row counts, chart caption/save)
 ├── tests/test_acs_cleaning.py          # unit tests
 ├── docs/data_notes.md                  # cleaning decisions and data caveats
+├── docs/contributions.md               # who did what
 ├── data/raw/  data/processed/          # committed project data (excluding rebuildable caches)
 ├── outputs/tables/  outputs/figures/   # results written by src.main
 ├── notebooks/  reports/
@@ -173,3 +174,7 @@ os.environ["BAY_DATA_DIR"] = "/content/drive/My Drive/<folder containing raw/ an
 - ACS values are survey estimates. County population (B01003) has no numeric margin of error because it is a controlled estimate; the published MOEs apply to counts, not to the proxies built from them.
 
 More detail on each cleaning step is in [docs/data_notes.md](docs/data_notes.md).
+
+## Contributions
+
+See [docs/contributions.md](docs/contributions.md) for each team member's contributions.
