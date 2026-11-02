@@ -10,10 +10,10 @@
 /data/processed/bay_area_acs1_population_B01003_2018_2024.csv -text
 /data/processed/bay_area_daytime_population_merged.csv -text
 /data/processed/bay_area_wac_rac_2018_2023_cleaned.csv -text
-/data/processed/hanzhen_cleaning/** -text
+/data/processed/acs_cleaning/** -text
 /data/processed/vital_signs_shapefile/** -text
 /data/raw/census_api_cache/** -text
 /data/raw/vital_signs/** -text
 /outputs/figures/Covid_pop_change.png -text
-/outputs/hanzhen_cleaning/** -text
+/outputs/acs_cleaning/** -text
 /reports/Covid_pop_change.pdf -text

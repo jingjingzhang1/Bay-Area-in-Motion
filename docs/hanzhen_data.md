@@ -18,8 +18,8 @@ tracked data files to migrate.
 | `data/processed/acs5_blockgroup_output/` | Block-group estimates, MOEs, annotations, coverage tables, and figure |
 | `data/processed/acs5_tract_check_output/` | Tract workplace estimates and coverage check |
 | `data/processed/vital_signs_shapefile/` | Converted shapefile with all companion files and field-name lookup |
-| `data/processed/hanzhen_cleaning/` | County exports from the prior cleaning checkout that differ from the original local exports |
-| `outputs/hanzhen_cleaning/` | Prior cleaning replay's merged table, coverage figures/HTML, and WFH chart |
+| `data/processed/acs_cleaning/` | County exports from the prior cleaning checkout that differ from the original local exports |
+| `outputs/acs_cleaning/` | Prior cleaning replay's merged table, coverage figures/HTML, and WFH chart |
 | `outputs/figures/Covid_pop_change.png` | Existing population-change figure |
 | `reports/Covid_pop_change.pdf` | Existing population-change report |
 
