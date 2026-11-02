@@ -14,12 +14,6 @@ Who did what for the midterm checkpoint (through November 2, 2026). File paths p
 - Revised the proposal after mentor feedback and planned and assigned team tasks
 - Report: Data section
 
-## Happy Feng
-- Cleaned LODES WAC/RAC for 2017–2023 and checked tract IDs against TIGER 2020 (method in `src/data/clean_wac_rac.py`); uploaded the WAC/RAC raw data and cleaned tract table
-- Built the shared map water layer and `add_water()` helper (`src/data/clean_water.py`, `src/visualization/maps.py`)
-- County daytime population trend chart, LODES-based vs ACS-only (`plot_county_daytime_trend` in `src/visualization/plot_acs.py`)
-- Report: Research Question and Plan to Finish
-
 ## Hanzhen Yu
 - ACS 1-year county, place and block-group cleaning and the shared Census API client (`src/data/clean_acs_county.py`, `clean_acs_places.py`, `clean_acs_blockgroups.py`, `census_api.py`), with tests
 - MTC Vital Signs data and converter (`src/data/convert_vital_signs.py`); county daytime population merge
@@ -34,3 +28,9 @@ Who did what for the midterm checkpoint (through November 2, 2026). File paths p
 - Uploaded ACS raw and processed data; merged 2 pull requests
 - Tested the full pipeline (`python -m src.main`) and helped get it running end to end
 - Report: Early Results
+
+## Happy Feng
+- Cleaned LODES WAC/RAC for 2017–2023 and checked tract IDs against TIGER 2020 (method in `src/data/clean_wac_rac.py`); uploaded the WAC/RAC raw data and cleaned tract table
+- Built the shared map water layer and `add_water()` helper (`src/data/clean_water.py`, `src/visualization/maps.py`)
+- County daytime population trend chart, LODES-based vs ACS-only (`plot_county_daytime_trend` in `src/visualization/plot_acs.py`)
+- Report: Research Question and Plan to Finish
