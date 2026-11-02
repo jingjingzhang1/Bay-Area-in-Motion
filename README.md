@@ -65,7 +65,7 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 │       └── helpers.py                  # shared helpers (row counts, chart caption/save)
 ├── tests/test_acs_cleaning.py          # unit tests
 ├── docs/data_notes.md                  # cleaning decisions and data caveats
-├── data/raw/  data/processed/          # data (not tracked in git)
+├── data/raw/  data/processed/          # committed project data (excluding rebuildable caches)
 ├── outputs/tables/  outputs/figures/   # results written by src.main
 ├── notebooks/  reports/
 ├── requirements.txt  environment.yml
@@ -74,7 +74,7 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 
 ## Getting the data
 
-Raw and processed data are included in `data/` (every file is under GitHub's 100 MB limit; files larger than 98 MB would go only in the submitted ZIP). Raw files keep their original Census names and are never edited; everything in `data/processed/` is rebuilt from `data/raw/` by `python -m src.main clean`.
+The repository commits the raw and processed data files listed below that support the current analysis. Raw source files retain their original Census names, while cleaned and derived datasets are stored in `data/processed/`. Some geographic inputs, such as TIGER/Line layers, may be downloaded by the cleaning workflow if they are not already available locally. Rebuildable caches and temporary downloads are excluded from version control. The obsolete WAC/RAC datasets and duplicate `data/raw/wac_rac/` files have been removed; the current WAC/RAC workflow uses `data/raw/lodes/` and writes `data/processed/lodes_wac_rac_tracts_2017_2023.csv`.
 
 | Folder | File(s) | Source |
 |---|---|---|
