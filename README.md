@@ -84,7 +84,23 @@ Raw and processed data are included in `data/` (every file is under GitHub's 100
 | `data/raw/vital_signs/` | `vital_signs_tract_population_2017_2024.csv` | MTC Vital Signs, Population by tract |
 | `data/processed/` | `tiger_tracts_bay_area_2020.gpkg`, `tiger_tract_to_place_2020.csv`, `lodes_od_bay_area_{year}.csv.gz`, `lodes_xwalk_bay_area.csv.gz`, `lodes_wac_rac_tracts_2017_2023.csv`, `acs1_county_2017_2024.csv`, `acs5_tract_population_2023.csv`, `tiger_water_bay_area_2020.gpkg` | written by `src.main clean` |
 
-LODES files come from https://lehd.ces.census.gov/data/lodes/LODES8/ca/. The county ACS table is downloaded from the Census API by the code; setting `CENSUS_API_KEY` in your shell is optional. TIGER 2020 tracts and places are downloaded to `data/raw/tiger/` by `python -m src.main clean`; the water layer by `python -m src.main clean --extras`.
+LODES files come from https://lehd.ces.census.gov/data/lodes/LODES8/ca/. The standard run reuses the included county ACS table, so it does not need a Census API key. This table contains the project's 2017–2023 observations (excluding the unavailable 2020 standard ACS 1-year release); its filename `acs1_county_2017_2024.csv` follows the pipeline's existing naming convention but this included snapshot has no 2024 observations. It was adapted from the committed `data/processed/chiahao/county_ACS1_2017_2023_estimates_MOE_availability.csv`, preserving published estimates, count MOEs, controlled-population MOE missingness, and county FIPS codes.
+
+Fresh Census API downloads, including `--force-refresh` and uncached optional place/block-group downloads with `--extras`, require your own `CENSUS_API_KEY`. Set it in the shell before running; do not put a real key in a tracked file:
+
+```powershell
+# PowerShell (replace the placeholder locally)
+$env:CENSUS_API_KEY = "your-census-api-key"
+python -m src.main clean --force-refresh
+```
+
+```bash
+# macOS/Linux
+export CENSUS_API_KEY="your-census-api-key"
+python -m src.main clean --force-refresh
+```
+
+TIGER 2020 tracts and places are downloaded to `data/raw/tiger/` by `python -m src.main clean`; the water layer by `python -m src.main clean --extras`.
 
 ## How to run
 
