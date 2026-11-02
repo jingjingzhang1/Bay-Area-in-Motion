@@ -1,0 +1,17 @@
+{
+  "reference_period": "2019–2023 ACS 5-year (release 2023)",
+  "table": "B01003",
+  "official_acs5_tract_rows_9_counties": 1772,
+  "mtc_land_tracts": 1765,
+  "matched_MTC_to_official_acs5": 1765,
+  "mismatched_2023_population_estimates": 0,
+  "official_only_water_tracts": 7,
+  "LODES_combined_2019_2023_rows": 3530,
+  "nonpositive_daytime_proxy_rows": 3,
+  "resident_population_zero_tracts": 4,
+  "resident_population_under_500_tracts": 11,
+  "resident_population_relative_moe_gt_50pct_tracts": 3,
+  "county_totals_match": true,
+  "warning": "90% ACS MOE is for resident population only, not full daytime proxy; LODES has no matching ACS MOE",
+  "coverage_note": "2020 MTC population_2020 is ACS 5-year (2016–2020), NOT decennial count and not substitute for 2020 ACS1 WFH"
+}

@@ -1,0 +1,8 @@
+tract_geoid,county_geoid,county,acs5_2019_2023_population_estimate,acs5_2019_2023_population_moe_90pct,census_geography_name,acs_table,acs_dataset,acs_table_reference
+06001990000,06001,Alameda,0,14,Census Tract 9900; Alameda County; California,B01003,2023 ACS 5-Year Detailed Tables,https://data.census.gov/table/ACSDT5Y2023.B01003
+06013990000,06013,Contra Costa,0,14,Census Tract 9900; Contra Costa County; California,B01003,2023 ACS 5-Year Detailed Tables,https://data.census.gov/table/ACSDT5Y2023.B01003
+06041990100,06041,Marin,0,14,Census Tract 9901; Marin County; California,B01003,2023 ACS 5-Year Detailed Tables,https://data.census.gov/table/ACSDT5Y2023.B01003
+06075990100,06075,San Francisco,0,14,Census Tract 9901; San Francisco County; California,B01003,2023 ACS 5-Year Detailed Tables,https://data.census.gov/table/ACSDT5Y2023.B01003
+06075990200,06075,San Francisco,0,14,Census Tract 9902; San Francisco County; California,B01003,2023 ACS 5-Year Detailed Tables,https://data.census.gov/table/ACSDT5Y2023.B01003
+06081990100,06081,San Mateo,0,14,Census Tract 9901; San Mateo County; California,B01003,2023 ACS 5-Year Detailed Tables,https://data.census.gov/table/ACSDT5Y2023.B01003
+06097990100,06097,Sonoma,0,14,Census Tract 9901; Sonoma County; California,B01003,2023 ACS 5-Year Detailed Tables,https://data.census.gov/table/ACSDT5Y2023.B01003

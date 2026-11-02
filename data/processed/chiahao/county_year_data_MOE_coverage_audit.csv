@@ -1,0 +1,8 @@
+year,counties,B01003_population_estimates,B08301_resident_workers_estimates,B08301_WFH_estimates,B08604_workplace_workers_estimates,B08301_resident_workers_numeric_MOE,B08301_WFH_numeric_MOE,B08604_workplace_workers_numeric_MOE,B01003_population_numeric_MOE,B01003_population_MOE_source_status,2020_release_status,additional_MOE_needed
+2017,9,9,9,9,9,9,9,9,0,official B01003 MOE ***** (controlled; no numeric MOE),,No further B01003 MOE downloads needed; ***** is an official control marker
+2018,9,9,9,9,9,9,9,9,0,official B01003 MOE ***** (controlled; no numeric MOE),,No further B01003 MOE downloads needed; ***** is an official control marker
+2019,9,9,9,9,9,9,9,9,0,official B01003 MOE ***** (controlled; no numeric MOE),,No further B01003 MOE downloads needed; ***** is an official control marker
+2020,9,0,0,0,0,0,0,0,0,2020 no standard ACS1,No standard ACS1 2020,No standard 2020 ACS1
+2021,9,9,8,8,9,8,8,9,0,official B01003 MOE ***** (controlled; no numeric MOE),,No further B01003 MOE downloads needed; ***** is an official control marker
+2022,9,9,8,8,9,8,8,9,0,official B01003 MOE ***** (controlled; no numeric MOE),,No further B01003 MOE downloads needed; ***** is an official control marker
+2023,9,9,9,9,9,9,9,9,0,official B01003 MOE ***** (controlled; no numeric MOE),,No further B01003 MOE downloads needed; ***** is an official control marker

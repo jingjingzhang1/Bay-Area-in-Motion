@@ -1,0 +1,10 @@
+county,fixed_population_baseline,net_jobs_2019,net_jobs_2023,net_jobs_change,daytime_proxy_2019,daytime_proxy_2023,daytime_proxy_change,note
+Alameda,2023 ACS5 (2019–2023 period),-10416,21161,31577,1641533,1673110,31577,Change reflects LODES net job flow only because resident population is held fixed
+Contra Costa,2023 ACS5 (2019–2023 period),-123587,-131381,-7794,1037871,1030077,-7794,Change reflects LODES net job flow only because resident population is held fixed
+Marin,2023 ACS5 (2019–2023 period),2147,874,-1273,260912,259639,-1273,Change reflects LODES net job flow only because resident population is held fixed
+Napa,2023 ACS5 (2019–2023 period),5813,7238,1425,141883,143308,1425,Change reflects LODES net job flow only because resident population is held fixed
+San Francisco,2023 ACS5 (2019–2023 period),267687,282764,15077,1104008,1119085,15077,Change reflects LODES net job flow only because resident population is held fixed
+San Mateo,2023 ACS5 (2019–2023 period),31307,51222,19915,776407,796322,19915,Change reflects LODES net job flow only because resident population is held fixed
+Santa Clara,2023 ACS5 (2019–2023 period),144718,167985,23267,2048015,2071282,23267,Change reflects LODES net job flow only because resident population is held fixed
+Solano,2023 ACS5 (2019–2023 period),-57197,-61114,-3917,393627,389710,-3917,Change reflects LODES net job flow only because resident population is held fixed
+Sonoma,2023 ACS5 (2019–2023 period),-14616,-18464,-3848,471026,467178,-3848,Change reflects LODES net job flow only because resident population is held fixed

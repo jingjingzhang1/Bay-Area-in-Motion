@@ -1,0 +1,27 @@
+{
+  "bay_area_counties": 9,
+  "years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "county_year_panel_rows": 63,
+  "official_B08301_county_records": 52,
+  "official_B08604_county_records": 54,
+  "official_B08301_resident_and_WFH_numeric_MOEs": 52,
+  "official_B08604_numeric_MOEs": 54,
+  "county_rows_full_B01003_B08301_B08604": 52,
+  "missing_2020_standard_ACS1_rows": 9,
+  "missing_official_Napa_B08301_2021_2022": 2,
+  "2017_B01003_MOE": "***** official controlled-estimate suppression in all nine counties",
+  "2018_2023_B01003_MOE": "All official 2018/2019/2021/2022/2023 county B01003 records mark MOE as ***** (controlled); no numeric MOE imputed",
+  "san_francisco_WFH_share_2017_pct": 7.1585,
+  "san_francisco_WFH_share_2023_pct": 24.40111,
+  "sf_2023_LODES_minus_ACS_proxy": 104028,
+  "moe_scope": "Official B08301/B08604 count 90% MOE. NOT a margin of error for their ratio or daytime proxy.",
+  "provenance": "Official Census ACS1 B01003, B08301, B08604 ZIPs for 2017–2019 and 2021–2023; 2018–2023 B01003 estimates checked against previous team CSV."
+}
