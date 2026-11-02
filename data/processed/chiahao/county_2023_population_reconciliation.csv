@@ -1,0 +1,10 @@
+county,county_geoid,official_acs_tracts,mtc_land_tracts,water_tracts_missing_in_mtc,official_2023_population_sum,mtc_2023_population_sum,official_equals_mtc
+Alameda,06001,379,378,1,1651949,1651949,1
+Contra Costa,06013,242,241,1,1161458,1161458,1
+Marin,06041,63,62,1,258765,258765,1
+Napa,06055,40,40,0,136070,136070,1
+San Francisco,06075,244,242,2,836321,836321,1
+San Mateo,06081,174,173,1,745100,745100,1
+Santa Clara,06085,408,408,0,1903297,1903297,1
+Solano,06095,100,100,0,450824,450824,1
+Sonoma,06097,122,121,1,485642,485642,1
