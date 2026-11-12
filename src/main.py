@@ -108,6 +108,18 @@ def run_analysis():
     wac_rac = load_wac_rac() if WAC_RAC_TRACTS.exists() else None
     acs = load_acs_county() if ACS_COUNTY.exists() else None
 
+
+    if wac_rac is not None:
+        from src.analysis.job_centers import classify_job_centers
+
+        job_centers = classify_job_centers(wac_rac)
+        job_centers.to_csv(
+            TABLES_DIR / "ck1a_job_center_typology.csv",
+            index=False
+        )
+        print("CK1a: Job center typology saved")
+
+
     if "od_totals" in results:
         print("\n== Analysis: validation ==")
         if wac_rac is not None:
