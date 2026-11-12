@@ -145,8 +145,11 @@ def run_analysis():
 # ---------------------------------------------------------------- 3. figures
 def run_figures(results):
     from src.visualization import plot_od, plot_acs
+    from src.visualization.plot_population_change import INPUT, plot_population_change
 
     print("\n== Figures ==")
+    if not missing(INPUT, "processed Vital Signs population tracts"):
+        print(plot_population_change())
     if "corridors" in results:
         print(plot_od.plot_top_corridors(results["corridors"]))
     if "tract_change" in results:

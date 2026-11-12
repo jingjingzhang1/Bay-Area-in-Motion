@@ -49,7 +49,29 @@ Each section lists what the step does, why, and what to report. Code locations a
 - Block groups: one ACS 5-year release (2020–2024) with MOEs and annotations. It is a single release, not five annual observations.
 - `convert_vital_signs.py` needs GDAL (`conda install -c conda-forge gdal`) and refuses to overwrite an existing output folder.
 
+## Vital Signs population-change map [`src/visualization/plot_population_change.py`]
+
+- Reads the committed processed Vital Signs tract shapefile (1,765 tracts) and
+  maps `pop_covid_` without recalculating it. The processed input is never modified.
+- Five values are `-99999`, a missing-value sentinel, including a tract with zero
+  2019 population and positive 2023 population. These are gray; they are not assigned
+  to the most negative class. Nonfinite values are also missing.
+- The stored field generally uses `(2019 - 2023) / 2019 * 100`, the reverse of
+  conventional percent change. Values below -100 are therefore retained. Some
+  entries differ from the formula, including the first tract's stored zero.
+  Both the figure and README disclose this source-field limitation.
+- Classification is **user-defined fixed breaks (7 classes)**: <= -20,
+  (-20, -10], (-10, -2], (-2, 2], (2, 10], (10, 20], > 20 percent.
+  These are fixed thresholds, not quantiles or Jenks natural breaks. The central
+  class captures near-zero values; open-ended classes include all finite extremes.
+- Reprojects from the input CRS (EPSG:2227, feet) to EPSG:26910 (meters) before
+  drawing a 40 km scale bar. The north arrow denotes UTM grid north. The shared
+  water layer is overlaid if present. Rendering requires no network or ArcGIS.
+- Vital Signs population estimates are ACS 5-year estimates, with overlapping
+  periods; the mapped field should not be interpreted as independent annual counts.
+
 ## Map water layer [`src/data/clean_water.py`, `src/visualization/maps.py`] (Happy)
+
 
 - TIGER/Line 2020 area-water polygons for the nine counties (3,518 polygons), combined into one GeoPackage and reprojected to the project CRS, EPSG:26910 (NAD83 / UTM 10N, meters). It already includes San Francisco Bay, San Pablo Bay and the Pacific Ocean, so no separate MTC Bay layer is needed, and each TIGER file is cut at its county line, so no extra clipping is needed.
 - `add_water(ax, crs)` draws it above the tract data on every map, so all maps show water the same way (mentor Kaya's suggestion).
