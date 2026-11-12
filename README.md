@@ -166,6 +166,36 @@ os.environ["BAY_DATA_DIR"] = "/content/drive/My Drive/<folder containing raw/ an
 
 **Maps:** after `python -m src.main clean --extras`, call `add_water(ax, crs)` from `src.visualization.maps` after plotting the tracts, so the Bay, ocean and lakes show the same way on every map.
 
+## Rebuild the population-change map
+
+```bash
+python -m src.visualization.plot_population_change
+```
+
+This offline GeoPandas/Matplotlib command reads
+`data/processed/vital_signs_shapefile/vital_signs_population_tracts.shp`
+and writes `outputs/figures/fig_population_change_2019_2023.png`.
+It also runs during `python -m src.main figures` and honors `BAY_DATA_DIR`.
+The title is **Bay Area Population Change from 2019 to 2023**. The map includes
+a 40 km scale bar and a grid-north arrow in NAD83 / UTM zone 10N (EPSG:26910).
+The shared water layer is used if already available; no downloads are required.
+The near-zero class (-2%, 2%] is pale yellow. No county or regional boundary overlays are drawn.
+
+**Classification: user-defined fixed breaks (7 classes)**, with upper bounds
+of -20, -10, -2, 2, 10, and 20 percent, plus an open-ended final class.
+Intervals include their upper bound; the outer classes retain all finite extremes.
+This keeps the same thresholds across runs and distinguishes near-zero values
+from large changes. Zero baselines and invalid population counts are gray, not zero.
+
+**Calculation:** `(pop_2023 - pop_2019) / pop_2019 * 100`.
+Positive values indicate growth and negative values indicate decline. This is
+calculated from the population counts because the supplied `pop_covid_` field
+generally reverses the usual sign and has some inconsistent entries. For example,
+population 1,978 to 2,093 is now +5.81395%. The processed input is never modified.
+See [data notes](docs/data_notes.md).
+This Python export replaces the removed ArcGIS files
+`outputs/figures/Covid_pop_change.png` and `reports/Covid_pop_change.pdf`.
+
 ## Known limitations
 
 - LODES counts primary jobs at the employer's reported address, so remote work is not reflected, and multi-site employers can concentrate jobs at one location.
