@@ -4,8 +4,9 @@ Steps (from Happy's LODES_WAC_RAC_Cleaning notebook):
 1. keep blocks whose county is one of the nine Bay Area counties
    (2017: 252,128 -> 49,244 WAC blocks, 363,224 -> 62,832 RAC blocks);
 2. sum all-jobs totals (C000, primary jobs JT01) from 2020 blocks to tracts;
-3. outer-join WAC and RAC; a tract missing on one side gets 0;
-4. net_change = WAC - RAC.
+3. also sum the three earnings bands (CE01 <= $1,250/month, CE02 $1,251-$3,333, CE03 > $3,333);
+4. outer-join WAC and RAC; a tract missing on one side gets 0;
+5. net_change = WAC - RAC.
 Result: 1,765 tracts x 7 years = 12,355 rows; all 1,765 match TIGER 2020 tracts
 (the other 7 TIGER tracts are water).
 """
@@ -32,7 +33,11 @@ def tract_totals(kind, year):
     )
     raw["tract_geoid"] = raw[geo].str[:11]
     raw = raw[raw["tract_geoid"].str[:5].isin(BAY_AREA_COUNTIES)]
-    return raw.groupby("tract_geoid")[["C000", "CE01", "CE02", "CE03"]].sum().rename(columns=lambda c: kind.upper() if c == "C000" else f"{kind.upper()}_{c}"), len(raw)
+    bands = ["C000", "CE01", "CE02", "CE03"]
+    totals = raw.groupby("tract_geoid")[bands].sum()
+    totals = totals.rename(columns=lambda c: kind.upper() if c == "C000" else f"{kind.upper()}_{c}")
+    return totals, len(raw)
+
 
 def clean_wac_rac(years, output_path=WAC_RAC_TRACTS):
     """Build the tract WAC/RAC table for all years and save it. Returns (table, row_log)."""
@@ -52,13 +57,10 @@ def clean_wac_rac(years, output_path=WAC_RAC_TRACTS):
                     "tracts": len(tracts)})
     if not frames:
         return None, pd.DataFrame(log)
-table = pd.concat(frames, ignore_index=True)[[
-    "tract_geoid",
-    "WAC", "RAC", "net_change",
-    "WAC_CE01", "WAC_CE02", "WAC_CE03",
-    "RAC_CE01", "RAC_CE02", "RAC_CE03",
-    "year", "county_fips"
-]]    
+    columns = ["tract_geoid", "WAC", "RAC", "net_change",
+               "WAC_CE01", "WAC_CE02", "WAC_CE03", "RAC_CE01", "RAC_CE02", "RAC_CE03",
+               "year", "county_fips"]
+    table = pd.concat(frames, ignore_index=True)[columns]
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     table.to_csv(output_path, index=False)
     print(f"WAC/RAC: {len(table):,} tract-year rows saved to {Path(output_path).name}")
