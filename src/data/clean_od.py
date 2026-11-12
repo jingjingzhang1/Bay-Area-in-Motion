@@ -32,7 +32,7 @@ def clean_od_year(year):
         print(f"Skipping {out_path.name} (already cleaned)")
         return None
     if not in_path.exists():
-        print(f"MISSING raw file {in_path}: download it first (see README)")
+        print(f"MISSING raw file {in_path}: run `python -m src.data.download_lodes` first (see README)")
         return None
 
     bay_fips = set(BAY_AREA_COUNTIES)
