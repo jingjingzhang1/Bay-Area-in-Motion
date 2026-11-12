@@ -1,7 +1,7 @@
 """Rebuild the Vital Signs population-change map from the processed shapefile.
 
 Run from the project root: python -m src.visualization.plot_population_change
-The supplied pop_covid_ field is used verbatim, except for missing-value codes.
+Percent change is calculated from pop_2019 and pop_2023.
 """
 from pathlib import Path
 
@@ -29,6 +29,14 @@ COLORS = ["#8c2d04", "#d94801", "#fd8d3c", "#f7f7f7", "#9ecae1", "#4292c6", "#08
 NO_DATA = "#bdbdbd"
 
 
+def population_change(tracts):
+    """Conventional percent change; invalid counts or zero baselines are missing."""
+    baseline = pd.to_numeric(tracts["pop_2019"], errors="coerce")
+    current = pd.to_numeric(tracts["pop_2023"], errors="coerce")
+    valid = (baseline > 0) & (current >= 0) & np.isfinite(baseline) & np.isfinite(current)
+    return (current.where(valid) - baseline.where(valid)) / baseline.where(valid) * 100
+
+
 def classify(values):
     """Right-closed fixed intervals; missing/sentinel/nonfinite values stay missing."""
     values = pd.to_numeric(values, errors="coerce")
@@ -54,12 +62,12 @@ def plot_population_change(input_path=INPUT, output_path=OUTPUT):
     tracts = gpd.read_file(input_path)
     if tracts.crs is None:
         raise ValueError("The input shapefile must declare a coordinate reference system.")
-    if "pop_covid_" not in tracts:
-        raise ValueError("The input shapefile must contain pop_covid_.")
+    if not {"pop_2019", "pop_2023"}.issubset(tracts.columns):
+        raise ValueError("The input shapefile must contain pop_2019 and pop_2023.")
     if tracts.empty or tracts.geometry.is_empty.any() or tracts.geometry.isna().any():
         raise ValueError("The input must contain nonempty tract geometries.")
     tracts = tracts.to_crs(PROJECT_CRS)
-    classes = classify(tracts["pop_covid_"])
+    classes = classify(population_change(tracts))
     colors = classes.astype(object).map(dict(zip(LABELS, COLORS))).fillna(NO_DATA)
 
     fig, ax = plt.subplots(figsize=(12, 11), facecolor="white")
@@ -92,17 +100,17 @@ def plot_population_change(input_path=INPUT, output_path=OUTPUT):
     handles = [Patch(facecolor=color, edgecolor="#777777", linewidth=0.4, label=label)
                for color, label in zip(COLORS, LABELS)]
     handles.append(Patch(facecolor=NO_DATA, label=f"No data ({classes.isna().sum()} tracts)"))
-    fig.legend(handles=handles, title="Population change (%)\npop_covid_ as supplied",
+    fig.legend(handles=handles, title="Population change (%)\nNegative: decline\nPositive: growth",
                loc="center left", bbox_to_anchor=(0.76, 0.54), frameon=False,
                labelspacing=1.0, fontsize=11, title_fontsize=11)
     fig.text(0.78, 0.29, "Classification:\nUser-defined fixed breaks\n7 classes; right-closed intervals",
              fontsize=9, color="#455a64", linespacing=1.5)
     fig.suptitle(TITLE, fontsize=20, fontweight="bold", y=0.96)
     fig.text(0.5, 0.915, "MTC Vital Signs | Bay Area census tracts", ha="center", fontsize=12, color="#455a64")
-    fig.text(0.06, 0.075, "Source: processed Vital Signs population tracts, pop_covid_. Projection: NAD83 / UTM zone 10N (EPSG:26910).",
+    fig.text(0.06, 0.075, "Source: processed Vital Signs population tracts, pop_2019 and pop_2023. Projection: NAD83 / UTM zone 10N (EPSG:26910).",
              fontsize=9)
-    fig.text(0.06, 0.05, "Values preserved as supplied: the field generally uses (2019 - 2023) / 2019, reversing the usual change sign.", fontsize=9)
-    fig.text(0.06, 0.03, "Missing code -99999 is gray. Vital Signs estimates are based on ACS 5-year releases; periods overlap.", fontsize=9)
+    fig.text(0.06, 0.05, "Percent change = (2023 population - 2019 population) / 2019 population x 100. Zero baselines or invalid counts are gray.", fontsize=9)
+    fig.text(0.06, 0.03, "Vital Signs estimates are based on ACS 5-year releases; periods overlap.", fontsize=9)
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=240, facecolor=fig.get_facecolor())

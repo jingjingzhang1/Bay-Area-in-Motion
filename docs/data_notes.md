@@ -52,14 +52,16 @@ Each section lists what the step does, why, and what to report. Code locations a
 ## Vital Signs population-change map [`src/visualization/plot_population_change.py`]
 
 - Reads the committed processed Vital Signs tract shapefile (1,765 tracts) and
-  maps `pop_covid_` without recalculating it. The processed input is never modified.
-- Five values are `-99999`, a missing-value sentinel, including a tract with zero
-  2019 population and positive 2023 population. These are gray; they are not assigned
-  to the most negative class. Nonfinite values are also missing.
-- The stored field generally uses `(2019 - 2023) / 2019 * 100`, the reverse of
-  conventional percent change. Values below -100 are therefore retained. Some
-  entries differ from the formula, including the first tract's stored zero.
-  Both the figure and README disclose this source-field limitation.
+  calculates `(pop_2023 - pop_2019) / pop_2019 * 100`, as requested after checking
+  the source field. Positive values indicate growth; negative values indicate decline.
+  The processed input is never modified.
+- Zero 2019 population makes percent change undefined, even with positive 2023
+  population. Zero baselines, negative counts (including -99999 sentinel codes),
+  nonnumeric counts and nonfinite counts are gray. Zero 2023 population with a
+  positive 2019 baseline is valid and gives -100%.
+- The supplied `pop_covid_` field generally uses `(2019 - 2023) / 2019 * 100`,
+  reversing the conventional sign, and some entries differ from that formula.
+  The map therefore recalculates from the counts instead of flipping this field.
 - Classification is **user-defined fixed breaks (7 classes)**: <= -20,
   (-20, -10], (-10, -2], (-2, 2], (2, 10], (10, 20], > 20 percent.
   These are fixed thresholds, not quantiles or Jenks natural breaks. The central

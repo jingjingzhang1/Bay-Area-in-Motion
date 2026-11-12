@@ -182,14 +182,14 @@ The shared water layer is used if already available; no downloads are required.
 of -20, -10, -2, 2, 10, and 20 percent, plus an open-ended final class.
 Intervals include their upper bound; the outer classes retain all finite extremes.
 This keeps the same thresholds across runs and distinguishes near-zero values
-from large changes. Missing code `-99999` and nonfinite values are gray, not zero.
+from large changes. Zero baselines and invalid population counts are gray, not zero.
 
-**Source-field caveat:** this map uses `pop_covid_` exactly as supplied, as requested.
-The field generally follows `(pop_2019 - pop_2023) / pop_2019 * 100`, reversing
-the conventional change sign. For example, tract population 1,978 to 2,093 has
-`pop_covid_ = -5.81395`. Some entries also differ from that formula (the first
-tract is stored as zero despite changing counts). The map does not recalculate,
-flip signs, or label positive values as growth. See [data notes](docs/data_notes.md).
+**Calculation:** `(pop_2023 - pop_2019) / pop_2019 * 100`.
+Positive values indicate growth and negative values indicate decline. This is
+calculated from the population counts because the supplied `pop_covid_` field
+generally reverses the usual sign and has some inconsistent entries. For example,
+population 1,978 to 2,093 is now +5.81395%. The processed input is never modified.
+See [data notes](docs/data_notes.md).
 This Python export replaces the removed ArcGIS files
 `outputs/figures/Covid_pop_change.png` and `reports/Covid_pop_change.pdf`.
 
