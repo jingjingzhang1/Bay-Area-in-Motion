@@ -110,6 +110,11 @@ def run_analysis():
 
 
     if wac_rac is not None:
+        from src.analysis.earnings_balance import write_tables
+        write_tables(wac_rac)
+        print("HF2a: annual, period mean and change tables saved")
+
+    if wac_rac is not None:
         from src.analysis.job_centers import classify_job_centers
 
         job_centers = classify_job_centers(wac_rac)
