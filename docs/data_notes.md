@@ -67,9 +67,7 @@ Each section lists what the step does, why, and what to report. Code locations a
   These are fixed thresholds, not quantiles or Jenks natural breaks. The central
   class captures near-zero values; open-ended classes include all finite extremes.
 - The near-zero class is pale yellow to distinguish it from unmapped areas.
-  County outlines are dissolved by `county` from the Vital Signs tracts; dissolving
-  those counties together gives the mapped regional boundary. These outlines
-  describe the source geometry's coverage, including its coastal edges.
+  No county or regional boundary overlays are drawn.
 - Reprojects from the input CRS (EPSG:2227, feet) to EPSG:26910 (meters) before
   drawing a 40 km scale bar. The north arrow denotes UTM grid north. The shared
   water layer is overlaid if present. Rendering requires no network or ArcGIS.

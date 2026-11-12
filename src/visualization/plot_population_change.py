@@ -11,7 +11,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch, Rectangle
-from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
 
@@ -77,10 +76,6 @@ def plot_population_change(input_path=INPUT, output_path=OUTPUT):
     tracts.plot(ax=ax, color=colors, edgecolor="#ffffff", linewidth=0.12, zorder=2)
     if WATER_LAYER.exists():
         add_water(ax, PROJECT_CRS)
-    # Derive outlines from the same committed geometry; no external boundary download.
-    counties = tracts[["county", "geometry"]].dissolve(by="county")
-    counties.boundary.plot(ax=ax, color="#59656b", linewidth=0.45, zorder=4)
-    counties.dissolve().boundary.plot(ax=ax, color="#263238", linewidth=0.9, zorder=5)
 
     xmin, ymin, xmax, ymax = tracts.total_bounds
     width, height = xmax - xmin, ymax - ymin
@@ -105,8 +100,6 @@ def plot_population_change(input_path=INPUT, output_path=OUTPUT):
     handles = [Patch(facecolor=color, edgecolor="#777777", linewidth=0.4, label=label)
                for color, label in zip(COLORS, LABELS)]
     handles.append(Patch(facecolor=NO_DATA, label=f"No data ({classes.isna().sum()} tracts)"))
-    handles.append(Line2D([0], [0], color="#263238", lw=0.9, label="Mapped Bay Area boundary"))
-    handles.append(Line2D([0], [0], color="#59656b", lw=0.45, label="County boundaries"))
     fig.legend(handles=handles, title="Population change (%)\nNegative: decline\nPositive: growth",
                loc="center left", bbox_to_anchor=(0.76, 0.54), frameon=False,
                labelspacing=1.0, fontsize=11, title_fontsize=11)
@@ -117,7 +110,7 @@ def plot_population_change(input_path=INPUT, output_path=OUTPUT):
     fig.text(0.06, 0.075, "Source: processed Vital Signs population tracts, pop_2019 and pop_2023. Projection: NAD83 / UTM zone 10N (EPSG:26910).",
              fontsize=9)
     fig.text(0.06, 0.05, "Percent change = (2023 population - 2019 population) / 2019 population x 100. Zero baselines or invalid counts are gray.", fontsize=9)
-    fig.text(0.06, 0.03, "Boundaries derived from Vital Signs tracts. Estimates are based on ACS 5-year releases; periods overlap.", fontsize=9)
+    fig.text(0.06, 0.03, "Vital Signs estimates are based on ACS 5-year releases; periods overlap.", fontsize=9)
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=240, facecolor=fig.get_facecolor())

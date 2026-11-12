@@ -177,8 +177,7 @@ It also runs during `python -m src.main figures` and honors `BAY_DATA_DIR`.
 The title is **Bay Area Population Change from 2019 to 2023**. The map includes
 a 40 km scale bar and a grid-north arrow in NAD83 / UTM zone 10N (EPSG:26910).
 The shared water layer is used if already available; no downloads are required.
-The near-zero class (-2%, 2%] is pale yellow. County outlines and the outer
-mapped Bay Area boundary are dissolved from the same Vital Signs tract geometry.
+The near-zero class (-2%, 2%] is pale yellow. No county or regional boundary overlays are drawn.
 
 **Classification: user-defined fixed breaks (7 classes)**, with upper bounds
 of -20, -10, -2, 2, 10, and 20 percent, plus an open-ended final class.
