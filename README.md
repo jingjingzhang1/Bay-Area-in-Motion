@@ -65,7 +65,8 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 │       └── helpers.py                  # shared helpers (row counts, chart caption/save)
 ├── tests/test_acs_cleaning.py          # unit tests
 ├── docs/data_notes.md                  # cleaning decisions and data caveats
-├── data/raw/  data/processed/          # data (not tracked in git)
+├── docs/contributions.md               # who did what
+├── data/raw/  data/processed/          # committed project data (excluding rebuildable caches)
 ├── outputs/tables/  outputs/figures/   # results written by src.main
 ├── notebooks/  reports/
 ├── requirements.txt  environment.yml
@@ -74,17 +75,18 @@ File names follow one pattern: `clean_*` cleans one dataset, analysis files are 
 
 ## Getting the data
 
-Raw and processed data are included in `data/` (every file is under GitHub's 100 MB limit; files larger than 98 MB would go only in the submitted ZIP). Raw files keep their original Census names and are never edited; everything in `data/processed/` is rebuilt from `data/raw/` by `python -m src.main clean`.
+The repository commits the raw and processed data files listed below that support the current analysis, except the raw LODES OD files (80–90 MB each), which exceed the 50 MB limit for committed files. The processed OD files are committed, so `python -m src.main` runs without them. To re-run the OD cleaning from scratch, download them first (see below). Raw source files retain their original Census names, while cleaned and derived datasets are stored in `data/processed/`. Some geographic inputs, such as TIGER/Line layers, may be downloaded by the cleaning workflow if they are not already available locally. Rebuildable caches and temporary downloads are excluded from version control. The obsolete WAC/RAC datasets and duplicate `data/raw/wac_rac/` files have been removed; the current WAC/RAC workflow uses `data/raw/lodes/` and writes `data/processed/lodes_wac_rac_tracts_2017_2023.csv`.
 
 | Folder | File(s) | Source |
 |---|---|---|
-| `data/raw/lodes/` | `ca_od_main_JT01_{2017..2023}.csv.gz`, `ca_xwalk.csv.gz` | LODES8 `ca/od/` and `ca/` |
+| `data/raw/lodes/` | `ca_xwalk.csv.gz` | LODES8 `ca/` |
+| `data/raw/lodes/` (**not in the repo**) | `ca_od_main_JT01_{2017..2023}.csv.gz` | LODES8 `ca/od/`; download with `python -m src.data.download_lodes` |
 | `data/raw/lodes/` | `ca_wac_S000_JT01_{2017..2023}.csv.gz`, `ca_rac_S000_JT01_{2017..2023}.csv.gz` | LODES8 `ca/wac/` and `ca/rac/` |
 | `data/raw/acs/` | `ACSDT5Y2023.B01003.zip` | data.census.gov, table B01003, 2023 ACS 5-year, all California tracts |
 | `data/raw/vital_signs/` | `vital_signs_tract_population_2017_2024.csv` | MTC Vital Signs, Population by tract |
 | `data/processed/` | `tiger_tracts_bay_area_2020.gpkg`, `tiger_tract_to_place_2020.csv`, `lodes_od_bay_area_{year}.csv.gz`, `lodes_xwalk_bay_area.csv.gz`, `lodes_wac_rac_tracts_2017_2023.csv`, `acs1_county_2017_2024.csv`, `acs5_tract_population_2023.csv`, `tiger_water_bay_area_2020.gpkg` | written by `src.main clean` |
 
-LODES files come from https://lehd.ces.census.gov/data/lodes/LODES8/ca/. The standard run reuses the included county ACS table, so it does not need a Census API key. This table contains the project's 2017–2023 observations (excluding the unavailable 2020 standard ACS 1-year release); its filename `acs1_county_2017_2024.csv` follows the pipeline's existing naming convention but this included snapshot has no 2024 observations. It was adapted from the committed `data/processed/chiahao/county_ACS1_2017_2023_estimates_MOE_availability.csv`, preserving published estimates, count MOEs, controlled-population MOE missingness, and county FIPS codes.
+LODES files come from https://lehd.ces.census.gov/data/lodes/LODES8/ca/. The raw OD download is only needed to rebuild `data/processed/lodes_od_bay_area_{year}.csv.gz`: delete those files, run `python -m src.data.download_lodes` (about 600 MB in total; add years such as `2019 2023` to fetch fewer), then `python -m src.main clean`. The raw-to-kept row counts for the Data section are saved in `outputs/tables/od_row_log.csv`. The standard run reuses the included county ACS table, so it does not need a Census API key. This table contains the project's 2017–2023 observations (excluding the unavailable 2020 standard ACS 1-year release); its filename `acs1_county_2017_2024.csv` follows the pipeline's existing naming convention but this included snapshot has no 2024 observations. It was adapted from the committed `data/processed/acs_validation/county_ACS1_2017_2023_estimates_MOE_availability.csv`, preserving published estimates, count MOEs, controlled-population MOE missingness, and county FIPS codes.
 
 Fresh Census API downloads, including `--force-refresh` and uncached optional place/block-group downloads with `--extras`, require your own `CENSUS_API_KEY`. Set it in the shell before running; do not put a real key in a tracked file:
 
@@ -203,3 +205,7 @@ This Python export replaces the removed ArcGIS files
 - ACS values are survey estimates. County population (B01003) has no numeric margin of error because it is a controlled estimate; the published MOEs apply to counts, not to the proxies built from them.
 
 More detail on each cleaning step is in [docs/data_notes.md](docs/data_notes.md).
+
+## Contributions
+
+See [docs/contributions.md](docs/contributions.md) for each team member's contributions.
