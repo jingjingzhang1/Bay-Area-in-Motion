@@ -1,0 +1,4 @@
+scale,units,median_abs_change,largest_gain,largest_loss
+City,101,780.0,39157,-8648
+County,9,17478.0,39159,-17478
+Tract,1765,170.0,41353,-40101
